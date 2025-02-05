@@ -1,14 +1,223 @@
-<!doctype html>
-<html>
-    <head> 
-        <meta charset="UTF-8"> 
-        <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1"> 
-        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-        <title>刘航舒</title>
-    </head> 
-        <div>
-            睡觉啦
-            
-        </div>  
-    
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘航舒</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffe4e1, #fffafa);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Lobster', cursive;
+            overflow: hidden;
+        }
+
+     .love-letter-cover {
+            width: 350px;
+            height: 250px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+     .love-letter-cover:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+
+     .love-letter-cover::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background-image: url('http://shp.qpic.cn/collector/298/851ea466-3971-44b9-bda7-e5d6ab348ce9/0');
+            background-size: cover;
+            z-index: 3;
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+     .love-letter-content {
+            width: 300px;
+            height: auto;
+            max-height: 200px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 18px;
+            color: #333;
+            opacity: 0;
+            visibility: hidden;
+            position: relative;
+            margin-top: -250px;
+            transition: all 1s ease;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOutDown {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 18px 40px;
+            font-size: 22px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff1493;
+            transform: translateY(-4px);
+        }
+
+     .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            font-size: 16px;
+            background-color: #ccc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+     .close-button:hover {
+            background-color: #aaa;
+        }
+
+        /* 新增封面打开和关闭的动画 */
+        @keyframes coverShrink {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(0.95);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes coverExpand {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="love-letter-cover">
+        <span style="font-size: 30px; color: #ff69b4;">点击展开</span>
+    </div>
+    <div class="love-letter-content">
+        <span class="close-button" id="closeBtn">收回</span>
+        [2025年2月5日]：<br>
+睡会觉吧
+<br>
+        <br>
+        
+    </div>
+    <!-- 修改为音频链接 -->
+    <audio id="openSound" src="https://api.uomg.com/api/rand.music" preload="auto"></audio>
+    <audio id="closeSound" src="https://api.uomg.com/api/rand.music" preload="auto"></audio>
+    <script>
+        const cover = document.querySelector('.love-letter-cover');
+        const content = document.querySelector('.love-letter-content');
+        const closeBtn = document.getElementById('closeBtn');
+        const openSound = document.getElementById('openSound');
+        const closeSound = document.getElementById('closeSound');
+
+        cover.addEventListener('click', function () {
+            cover.style.animation = 'coverShrink 0.3s ease';
+            content.style.opacity = '1';
+            content.style.visibility = 'visible';
+            content.style.marginTop = '30px';
+            content.style.animation = 'fadeInUp 1s ease forwards';
+            openSound.play();
+        });
+
+        closeBtn.addEventListener('click', function () {
+            cover.style.animation = 'coverExpand 0.3s ease';
+            content.style.animation = 'fadeOutDown 1s ease forwards';
+            setTimeout(() => {
+                content.style.opacity = '0';
+                content.style.visibility = 'hidden';
+                content.style.marginTop = '-250px';
+                closeSound.play();
+            }, 1000);
+        });
+    </script>
+</body>
+
 </html>
