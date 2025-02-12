@@ -9,17 +9,18 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #ffe4e1, #fffafa);
+            background: linear-gradient(to bottom, #ffc0cb, #f8f0e4);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Lobster', cursive;
+            font-family: 'Caveat', cursive;
             overflow: hidden;
+            position: relative;
         }
 
-     .love-letter-cover {
+       .love-letter-cover {
             width: 350px;
             height: 250px;
             background-color: #fff;
@@ -32,16 +33,15 @@
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
-            z - index: 2;
+            z-index: 2;
         }
 
-     .love-letter-cover:hover {
+       .love-letter-cover:hover {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
 
-
-     .love-letter-cover::after {
+       .love-letter-cover::after {
             content: "";
             position: absolute;
             top: 20px;
@@ -50,7 +50,7 @@
             height: 60px;
             background-image: url('http://shp.qpic.cn/collector/298/851ea466-3971-44b9-bda7-e5d6ab348ce9/0');
             background-size: cover;
-            z - index: 3;
+            z-index: 3;
             animation: rotate 8s linear infinite;
         }
 
@@ -64,7 +64,7 @@
             }
         }
 
-     .love-letter-content {
+       .love-letter-content {
             width: 300px;
             height: auto;
             max-height: 200px;
@@ -83,7 +83,7 @@
             margin-top: -250px;
             transition: all 1s ease;
             overflow-y: auto;
-            z - index: 1;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -114,7 +114,7 @@
             margin-top: 30px;
             padding: 18px 40px;
             font-size: 22px;
-            background-color: #ff69b4;
+            background-color: #ff99cc;
             color: white;
             border: none;
             border-radius: 10px;
@@ -124,11 +124,11 @@
         }
 
         button:hover {
-            background-color: #ff1493;
+            background-color: #ff6699;
             transform: translateY(-4px);
         }
 
-     .close-button {
+       .close-button {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -143,11 +143,10 @@
             transition: all 0.3s ease;
         }
 
-     .close-button:hover {
+       .close-button:hover {
             background-color: #aaa;
         }
 
-        /* 新增封面打开和关闭的动画 */
         @keyframes coverShrink {
             0% {
                 transform: scale(1);
@@ -176,7 +175,6 @@
             }
         }
 
-        /* 视频样式 */
         video {
             width: 300px;
             height: auto;
@@ -184,37 +182,75 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        video::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: #ccc;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+       .snowflake {
+            position: absolute;
+            animation: fallSnow 5s linear infinite;
+            transform-origin: center;
+            font-size: 20px; /* 调整雪花大小 */
+            color: white; /* 雪花颜色 */
+        }
+
+        @keyframes fallSnow {
+            from {
+                top: -50px;
+                transform: translateX(calc((Math.random() - 0.5) * 200px));
+            }
+            to {
+                top: 100vh;
+                transform: translateX(calc((Math.random() - 0.5) * 200px));
+            }
+        }
     </style>
 </head>
 
 <body>
-
     <div class="love-letter-cover">
-    
-        <span style="font-size: 30px; color: #ff69b4;">点击展开</span>
-        
+        <span style="font-size: 30px; color: #ff99cc;">点击展开</span>
     </div>
     <div class="love-letter-content">
         <span class="close-button" id="closeBtn">收回</span>
 
->
-        [就把这个页面定格在此处
+        
 
-<br>吧，
-
-时光悠悠向前，或许在某个不经意的瞬间，我们又会重新点开它，希望那时候我们还如现在一样，还记得彼此，下面祝福你：]
+        你想气哭我吗：<br>不想，我对你应该没有哪么重要，没必要哭；
+        <br>
+你控制欲要不要这么强：<br>以后对你不会了；
+        <br>
+你到底懂不懂你多没安全感？：<br>以后对你不用懂了；
+        <br>
+要天天粘着我：<br>以后都不会粘着你了；
+        <br>
+我快被你逼疯了：<br>我的错以后不会了；
+        <br>
+你让我感到很窒息：<br>对不起，我的错；
+        <br>
+我也跟你说了你不要多想：<br>以后对你不会多想了；<br>可是你一次又一次像监视我一样我是囚犯吗：<br>我的错以后不会了；<br>你到底在怕什么？：<br>以后不会怕了；<br>我希望你给我点自由：<br>嗯，好，以后不会管你了；<br>你晚上回去不许哭没必要哭：<br>让你担心了，我的错，听你的没必要哭；<br>我没说不跟你继续：<br>嗯，听你的，姐姐；<br>早上来找我我就很懵逼了、中午下班还要跟我一块、晚上你还要跟我回去：<br>我的错，以后不会了；<br>你让我感到心慌：<br>以后不会让你感到心慌了，对不起；<br>你为什么一直重复这一句！：<br>因为当时我不知道发什么，只能向你保证以后不会了；<br>那你是想跟我断干净吗：<br>不想断，如果我让你感到不自由、窒息，哪你就给我删了吧，没必要问我；<br>
+就还是跟之前一样：<br>嗯，好的，姐姐
+        <br>
+        [2025年2月13日]
+        <br>
+  [视频也不放伤感的，给你放了个电影《千与千寻》，希望你喜欢]
 <br>
-<br>
-无论前路通向何方，愿你所行皆坦途，春日繁花常伴，夏日清风相随，秋日硕果累累，冬日暖阳相拥。望你在每一个晨曦初露时心怀希望，于每一个繁星满天的夜安然入眠，生活的琐碎磨不灭眼中的光，岁月的流转添几分从容豁达，往后余生，顺遂无虞，喜乐安康。
-
-<br>
-        [2025年2月12日]
-        <video src="https://v2.kwaicdn.com/upic/2023/04/29/17/BMjAyMzA0MjkxNzIzNTJfMjg3MDI2MjQ1Ml8xMDE3NjMxNDE1NzZfMl8z_hd15_B8e1c664265a52a25c4132ea6a2283040.mp4?pkey=AAW1--zD1XsMrqSBhibynIbnWqNQ3xJA8rxPVFOQsFsMugC-iqS_pUBiiDVSXgWiz64UnoNM5zbWxVdZ9qAFk3iC4RwovP7i70jCUH4fmsnCF01T1UA9_OjDjc2vv_dbmoI&tag=1-1739205293-unknown-0-yaqy0vnnze-208a4cad07ba093a&clientCacheKey=3xavr6v89bpn27u_hd15.mp4&di=b67b66fc&bp=10000&tt=hd15&ss=vp" controls></video>
+        <video src="http://v16m-default.akamaized.net/13a46c1a887750ceb5526188ead22710/67ad5292/video/tos/alisg/tos-alisg-ve-0051c001-sg/osCwbTMjyGK81HfeR4PQgedQAA4XgGKQDSAASp/?a=2011&bti=MzhALjBg&ch=0&cr=0&dr=0&net=5&cd=0%7C0%7C0%7C0&br=4098&bt=2049&cs=0&ds=4&ft=XE5bCqT0mmjPD127SV5J3wU7C1JcMeF~O5&mime_type=video_mp4&qs=0&rc=aWRnNDllNDhkNzU2NDM7aEBpM2R4ank5cmU4bzMzODYzNEBhMjMwLV8zNi0xNDAzM2IvYSM1NWQwMmRrYWZgLS1kMC1zcw%3D%3D&vvpl=1&l=20250212175722F138F46E3DB1F92AE53B&btag=e000a8000" controls>
+            
+        </video>
     </div>
-
-    <!-- 修改为音频链接 -->
-    <audio id="openSound" src="https://api.uomg.com/api/rand.music" preload="auto"></audio>
-    <audio id="closeSound" src="" preload="auto"></audio>
+    <audio id="openSound" src="温馨的音频链接" preload="auto"></audio>
+    <audio id="closeSound" src="温馨的音频链接" preload="auto"></audio>
     <script>
         const cover = document.querySelector('.love-letter-cover');
         const content = document.querySelector('.love-letter-content');
@@ -241,6 +277,17 @@
                 closeSound.play();
             }, 1000);
         });
+
+        // 生成雪花
+        const numSnowflakes = 50;
+        for (let i = 0; i < numSnowflakes; i++) {
+            const snowflake = document.createElement('span');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '0'; // 雪花字符
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = (Math.random() * 3 + 2) +'s';
+            document.body.appendChild(snowflake);
+        }
     </script>
 </body>
 
