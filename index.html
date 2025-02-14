@@ -200,8 +200,8 @@
             position: absolute;
             animation: fallSnow 5s linear infinite;
             transform-origin: center;
-            font-size: 20px; /* 调整雪花大小 */
-            color: white; /* 雪花颜色 */
+            font-size: 20px;
+            color: white;
         }
 
         @keyframes fallSnow {
@@ -209,6 +209,7 @@
                 top: -50px;
                 transform: translateX(calc((Math.random() - 0.5) * 200px));
             }
+
             to {
                 top: 100vh;
                 transform: translateX(calc((Math.random() - 0.5) * 200px));
@@ -218,23 +219,16 @@
 </head>
 
 <body>
+    <input type="date" id="datePicker">
+    <br>
     <div class="love-letter-cover">
         <span style="font-size: 30px; color: #ff99cc;">点击展开</span>
     </div>
     <div class="love-letter-content">
         <span class="close-button" id="closeBtn">收回</span>
-我好想你😔
-    <br>
-        打卡一下，没有忘记你
-
-<br>
-        [2025年2月13日]
-        <br>
-  [今天电影《千与千寻》]
-<br>
-        <video src="https://tyyszywvod5.com/videos/202501/01/67743e608b180947c3963c50/5bcc9c/index.m3u8" controls>
-            
-        </video>
+        <p id="date"></p>
+        <p id="message"></p>
+        <video id="movieVideo" controls></video>
     </div>
     <audio id="openSound" src="温馨的音频链接" preload="auto"></audio>
     <audio id="closeSound" src="温馨的音频链接" preload="auto"></audio>
@@ -244,8 +238,69 @@
         const closeBtn = document.getElementById('closeBtn');
         const openSound = document.getElementById('openSound');
         const closeSound = document.getElementById('closeSound');
+        const dateElement = document.getElementById('date');
+        const messageElement = document.getElementById('message');
+        const movieVideo = document.getElementById('movieVideo');
+        const datePicker = document.getElementById('datePicker');
+
+        // 假设打卡文件名为 "checkin.txt"，且与 HTML 文件在同一目录下
+        const fileName = "checkin.txt";
+        const dataMap = {};
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', fileName, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    const text = xhr.responseText;
+                    const lines = text.split('\n');
+                    lines.forEach(line => {
+                        const parts = line.split(',');
+                        if (parts.length === 3) {
+                            const date = parts[0];
+                            const message = parts[1];
+                            const movieUrl = parts[2];
+                            dataMap[date] = { message, movieUrl };
+                        }
+                    });
+
+                    // 获取当前日期并设置为日期选择器的值
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    const month = String(today.getMonth() + 1).padStart(2, '0');
+                    const day = String(today.getDate()).padStart(2, '0');
+                    const todayDate = `${year}-${month}-${day}`;
+                    datePicker.value = todayDate;
+
+                    // 触发日期选择器的change事件以加载当天的数据
+                    const event = new Event('change');
+                    datePicker.dispatchEvent(event);
+
+                    datePicker.addEventListener('change', () => {
+                        const selectedDate = datePicker.value;
+                        const data = dataMap[selectedDate];
+                        if (data) {
+                            dateElement.textContent = `打卡一下，今天是 ${selectedDate}`;
+                            messageElement.textContent = data.message;
+                            movieVideo.src = data.movieUrl;
+                        } else {
+                            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
+                            messageElement.textContent = "";
+                            movieVideo.src = "";
+                        }
+                    });
+                } else {
+                    console.error('数据获取失败，状态码:', xhr.status);
+                }
+            }
+        };
+        xhr.send();
 
         cover.addEventListener('click', function () {
+            // 重新触发日期选择器的change事件以刷新内容
+            const changeEvent = new Event('change');
+            datePicker.dispatchEvent(changeEvent);
+
             cover.style.animation = 'coverShrink 0.3s ease';
             content.style.opacity = '1';
             content.style.visibility = 'visible';
@@ -270,7 +325,7 @@
         for (let i = 0; i < numSnowflakes; i++) {
             const snowflake = document.createElement('span');
             snowflake.classList.add('snowflake');
-            snowflake.textContent = '0'; // 雪花字符
+            snowflake.textContent = '❄';
             snowflake.style.left = Math.random() * window.innerWidth + 'px';
             snowflake.style.animationDuration = (Math.random() * 3 + 2) +'s';
             document.body.appendChild(snowflake);
