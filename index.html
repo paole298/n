@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,25 +175,12 @@
             }
         }
 
-        video {
+        img {
             width: 300px;
             height: auto;
             margin-top: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        video::before {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-color: #ccc;
-            border-radius: 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
         }
 
        .snowflake {
@@ -228,7 +215,7 @@
         <span class="close-button" id="closeBtn">收回</span>
         <p id="date"></p>
         <p id="message"></p>
-        <video id="movieVideo" controls></video>
+        <img id="imageElement" />
     </div>
     <audio id="openSound" src="温馨的音频链接" preload="auto"></audio>
     <audio id="closeSound" src="温馨的音频链接" preload="auto"></audio>
@@ -240,7 +227,7 @@
         const closeSound = document.getElementById('closeSound');
         const dateElement = document.getElementById('date');
         const messageElement = document.getElementById('message');
-        const movieVideo = document.getElementById('movieVideo');
+        const imageElement = document.getElementById('imageElement');
         const datePicker = document.getElementById('datePicker');
 
         // 假设打卡文件名为 "checkin.txt"，且与 HTML 文件在同一目录下
@@ -259,8 +246,8 @@
                         if (parts.length === 3) {
                             const date = parts[0];
                             const message = parts[1];
-                            const movieUrl = parts[2];
-                            dataMap[date] = { message, movieUrl };
+                            const imageUrl = parts[2]; // 这里假设第三部分是图片链接
+                            dataMap[date] = { message, imageUrl };
                         }
                     });
 
@@ -277,18 +264,43 @@
                     datePicker.dispatchEvent(event);
 
                     datePicker.addEventListener('change', () => {
-                        const selectedDate = datePicker.value;
-                        const data = dataMap[selectedDate];
-                        if (data) {
-                            dateElement.textContent = `打卡一下，今天是 ${selectedDate}`;
-                            messageElement.textContent = data.message;
-                            movieVideo.src = data.movieUrl;
-                        } else {
-                            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
-                            messageElement.textContent = "";
-                            movieVideo.src = "";
-                        }
-                    });
+    const selectedDate = datePicker.value;
+    const today = new Date();
+    const selected = new Date(selectedDate);
+    const feb4_2025 = new Date('2025-02-04');
+    const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    if (selectedDate === todayFormatted) {
+        const data = dataMap[selectedDate];
+        if (data) {
+            dateElement.textContent = `今天是 ${selectedDate}`;
+            messageElement.textContent = data.message;
+            imageElement.src = data.imageUrl;
+        } else {
+            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
+            messageElement.textContent = "";
+            imageElement.src = "";
+        }
+    } else if (selected > today) {
+        dateElement.textContent = '宝宝，我会一直喜欢你的';
+        messageElement.textContent = "";
+        imageElement.src = "1.jpg";
+    } else if (selected <= feb4_2025) {
+        dateElement.textContent = '宝宝,我喜欢你';
+        messageElement.textContent = "";
+        imageElement.src = "1.jpg";
+    } else {
+        const data = dataMap[selectedDate];
+        if (data) {
+            dateElement.textContent = `日期： ${selectedDate}`;
+            messageElement.textContent = data.message;
+            imageElement.src = data.imageUrl;
+        } else {
+            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
+            messageElement.textContent = "";
+            imageElement.src = "";
+        }
+    }
+});
                 } else {
                     console.error('数据获取失败，状态码:', xhr.status);
                 }
@@ -325,7 +337,7 @@
         for (let i = 0; i < numSnowflakes; i++) {
             const snowflake = document.createElement('span');
             snowflake.classList.add('snowflake');
-            snowflake.textContent = '1';
+            snowflake.textContent = 'I';
             snowflake.style.left = Math.random() * window.innerWidth + 'px';
             snowflake.style.animationDuration = (Math.random() * 3 + 2) +'s';
             document.body.appendChild(snowflake);
