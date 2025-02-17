@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #ffc0cb, #f8f0e4);
+            background: linear-gradient(to bottom, #ffb6c1, #e6c7e6);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -20,7 +20,7 @@
             position: relative;
         }
 
-       .love-letter-cover {
+      .love-letter-cover {
             width: 350px;
             height: 250px;
             background-color: #fff;
@@ -34,14 +34,15 @@
             position: relative;
             transition: all 0.3s ease;
             z-index: 2;
+            margin: 20px;
         }
 
-       .love-letter-cover:hover {
+      .love-letter-cover:hover {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
 
-       .love-letter-cover::after {
+      .love-letter-cover::after {
             content: "";
             position: absolute;
             top: 20px;
@@ -64,7 +65,7 @@
             }
         }
 
-       .love-letter-content {
+      .love-letter-content {
             width: 300px;
             height: auto;
             max-height: 200px;
@@ -84,6 +85,7 @@
             transition: all 1s ease;
             overflow-y: auto;
             z-index: 1;
+            margin: 20px;
         }
 
         @keyframes fadeInUp {
@@ -126,9 +128,10 @@
         button:hover {
             background-color: #ff6699;
             transform: translateY(-4px);
+            border: 1px solid #ff3366;
         }
 
-       .close-button {
+      .close-button {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -143,7 +146,7 @@
             transition: all 0.3s ease;
         }
 
-       .close-button:hover {
+      .close-button:hover {
             background-color: #aaa;
         }
 
@@ -176,19 +179,21 @@
         }
 
         img {
-            width: 300px;
+            width: 100%;
+            max-width: 300px;
             height: auto;
             margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-       .snowflake {
+      .snowflake {
             position: absolute;
             animation: fallSnow 5s linear infinite;
             transform-origin: center;
             font-size: 20px;
-            color: white;
+            color: #fff; /* 修改雪花颜色为白色，使其更明显 */
+            z-index: 100; /* 增加雪花的层级，确保在其他元素之上 */
         }
 
         @keyframes fallSnow {
@@ -202,10 +207,27 @@
                 transform: translateX(calc((Math.random() - 0.5) * 200px));
             }
         }
+
+      .snowflake:nth-child(1n) {
+            content: '❄';
+        }
+
+      .snowflake:nth-child(2n) {
+            content: '❅';
+        }
+
+      .snowflake:nth-child(3n) {
+            content: '✻';
+        }
+
+      .snowflake:nth-child(4n) {
+            content: '❆';
+        }
     </style>
 </head>
 
 <body>
+
     <input type="date" id="datePicker">
     <br>
     <div class="love-letter-cover">
@@ -264,43 +286,62 @@
                     datePicker.dispatchEvent(event);
 
                     datePicker.addEventListener('change', () => {
-    const selectedDate = datePicker.value;
-    const today = new Date();
-    const selected = new Date(selectedDate);
-    const feb4_2025 = new Date('2025-02-04');
-    const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-    if (selectedDate === todayFormatted) {
-        const data = dataMap[selectedDate];
-        if (data) {
-            dateElement.textContent = `今天是 ${selectedDate}`;
-            messageElement.textContent = data.message;
-            imageElement.src = data.imageUrl;
-        } else {
-            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
-            messageElement.textContent = "";
-            imageElement.src = "";
-        }
-    } else if (selected > today) {
-        dateElement.textContent = '宝宝，我会一直喜欢你的';
-        messageElement.textContent = "";
-        imageElement.src = "tupian/1.jpg";
-    } else if (selected <= feb4_2025) {
-        dateElement.textContent = '宝宝,我喜欢你';
-        messageElement.textContent = "";
-        imageElement.src = "tupian/1.jpg";
-    } else {
-        const data = dataMap[selectedDate];
-        if (data) {
-            dateElement.textContent = `日期： ${selectedDate}`;
-            messageElement.textContent = data.message;
-            imageElement.src = data.imageUrl;
-        } else {
-            dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
-            messageElement.textContent = "";
-            imageElement.src = "";
-        }
-    }
-});
+                        const selectedDate = datePicker.value;
+                        const today = new Date();
+                        const selected = new Date(selectedDate);
+                        const feb4_2025 = new Date('2025-02-04');
+                        const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                        if (selectedDate === todayFormatted) {
+                            const data = dataMap[selectedDate];
+                            if (data) {
+                                dateElement.textContent = `今天是 ${selectedDate}`;
+                                messageElement.textContent = data.message;
+                                imageElement.src = data.imageUrl;
+                            } else {
+                                dateElement.textContent = `今天是 ${selectedDate}`;
+                                messageElement.textContent = "好姐姐，我喜欢你";
+                                imageElement.src = "tupian/1.jpg";
+                            }
+                        } else if (selected > today) {
+                            dateElement.textContent = '未来的我会一直喜欢你';
+                            fetch('https://v1.hitokoto.cn/?encode=text')
+                              .then(response => response.text())
+                              .then(apiText => {
+                                    messageElement.textContent = apiText;
+                                    imageElement.src = "tupian/1.jpg";
+                                })
+                              .catch(error => {
+                                    console.error('获取API数据出错：', error);
+                                    messageElement.textContent = "宝宝";
+                                    imageElement.src = "tupian/1.jpg";
+                                });
+
+                        } else if (selected <= feb4_2025) {
+                            dateElement.textContent = '宝宝,我喜欢你';
+                            fetch('https://v1.hitokoto.cn/?encode=text')
+                              .then(response => response.text())
+                              .then(apiText => {
+                                    messageElement.textContent = apiText;
+                                    imageElement.src = "tupian/1.jpg";
+                                })
+                              .catch(error => {
+                                    console.error('获取API数据出错：', error);
+                                    messageElement.textContent = "宝宝";
+                                    imageElement.src = "tupian/1.jpg";
+                                });
+                        } else {
+                            const data = dataMap[selectedDate];
+                            if (data) {
+                                dateElement.textContent = `日期： ${selectedDate}`;
+                                messageElement.textContent = data.message;
+                                imageElement.src = data.imageUrl;
+                            } else {
+                                dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
+                                messageElement.textContent = "";
+                                imageElement.src = "";
+                            }
+                        }
+                    });
                 } else {
                     console.error('数据获取失败，状态码:', xhr.status);
                 }
@@ -333,14 +374,15 @@
         });
 
         // 生成雪花
-        const numSnowflakes = 50;
+        const numSnowflakes = 30;
         for (let i = 0; i < numSnowflakes; i++) {
             const snowflake = document.createElement('span');
             snowflake.classList.add('snowflake');
-            snowflake.textContent = 'I';
+            snowflake.textContent = '❅'; // 确保有默认的雪花内容
             snowflake.style.left = Math.random() * window.innerWidth + 'px';
             snowflake.style.animationDuration = (Math.random() * 3 + 2) +'s';
             document.body.appendChild(snowflake);
+            console.log('生成雪花:', i); // 添加调试语句
         }
     </script>
 </body>
