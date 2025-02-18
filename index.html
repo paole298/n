@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
             position: relative;
         }
 
-      .love-letter-cover {
+       .love-letter-cover {
             width: 350px;
             height: 250px;
             background-color: #fff;
@@ -37,12 +37,12 @@
             margin: 20px;
         }
 
-      .love-letter-cover:hover {
+       .love-letter-cover:hover {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
 
-      .love-letter-cover::after {
+       .love-letter-cover::after {
             content: "";
             position: absolute;
             top: 20px;
@@ -65,7 +65,7 @@
             }
         }
 
-      .love-letter-content {
+       .love-letter-content {
             width: 300px;
             height: auto;
             max-height: 200px;
@@ -131,7 +131,7 @@
             border: 1px solid #ff3366;
         }
 
-      .close-button {
+       .close-button {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -146,7 +146,7 @@
             transition: all 0.3s ease;
         }
 
-      .close-button:hover {
+       .close-button:hover {
             background-color: #aaa;
         }
 
@@ -186,43 +186,6 @@
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
-
-      .snowflake {
-            position: absolute;
-            animation: fallSnow 5s linear infinite;
-            transform-origin: center;
-            font-size: 20px;
-            color: #fff; /* 修改雪花颜色为白色，使其更明显 */
-            z-index: 100; /* 增加雪花的层级，确保在其他元素之上 */
-        }
-
-        @keyframes fallSnow {
-            from {
-                top: -50px;
-                transform: translateX(calc((Math.random() - 0.5) * 200px));
-            }
-
-            to {
-                top: 100vh;
-                transform: translateX(calc((Math.random() - 0.5) * 200px));
-            }
-        }
-
-      .snowflake:nth-child(1n) {
-            content: '❄';
-        }
-
-      .snowflake:nth-child(2n) {
-            content: '❅';
-        }
-
-      .snowflake:nth-child(3n) {
-            content: '✻';
-        }
-
-      .snowflake:nth-child(4n) {
-            content: '❆';
-        }
     </style>
 </head>
 
@@ -239,20 +202,17 @@
         <p id="message"></p>
         <img id="imageElement" />
     </div>
-    <audio id="openSound" src="温馨的音频链接" preload="auto"></audio>
-    <audio id="closeSound" src="温馨的音频链接" preload="auto"></audio>
+
     <script>
         const cover = document.querySelector('.love-letter-cover');
         const content = document.querySelector('.love-letter-content');
         const closeBtn = document.getElementById('closeBtn');
-        const openSound = document.getElementById('openSound');
-        const closeSound = document.getElementById('closeSound');
         const dateElement = document.getElementById('date');
         const messageElement = document.getElementById('message');
         const imageElement = document.getElementById('imageElement');
         const datePicker = document.getElementById('datePicker');
 
-        
+        // 假设打卡文件名为 "checkin.txt"，且与 HTML 文件在同一目录下
         const fileName = "checkin.txt";
         const dataMap = {};
 
@@ -359,7 +319,6 @@
             content.style.visibility = 'visible';
             content.style.marginTop = '30px';
             content.style.animation = 'fadeInUp 1s ease forwards';
-            openSound.play();
         });
 
         closeBtn.addEventListener('click', function () {
@@ -369,22 +328,14 @@
                 content.style.opacity = '0';
                 content.style.visibility = 'hidden';
                 content.style.marginTop = '-250px';
-                closeSound.play();
             }, 1000);
         });
-
-        // 生成雪花
-        const numSnowflakes = 30;
-        for (let i = 0; i < numSnowflakes; i++) {
-            const snowflake = document.createElement('span');
-            snowflake.classList.add('snowflake');
-            snowflake.textContent = '❅'; // 确保有默认的雪花内容
-            snowflake.style.left = Math.random() * window.innerWidth + 'px';
-            snowflake.style.animationDuration = (Math.random() * 3 + 2) +'s';
-            document.body.appendChild(snowflake);
-            console.log('生成雪花:', i); // 添加调试语句
-        }
     </script>
+
+    <div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js" data-themeColor="xf-girlPink"
+        data-bottomHeight="2e" data-songChart="热歌榜" data-fadeOutAutoplay data-memory="1"></div>
+    <script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
+    <script src="https://player.xfyun.club/js/yinghua.js"></script>
 </body>
 
 </html>
