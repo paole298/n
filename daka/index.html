@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘航舒姐姐</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<div class="petals-container"></div>
+<div class="heart-pulse"></div>
+<body>
+    <input type="date" id="datePicker">
+    <br>
+    <div class="love-letter-cover">
+        <span style="font-size: 30px; color: #ff99cc;">点击展开</span>
+    </div>
+    <div class="love-letter-content">
+        <span class="close-button" id="closeBtn">收回</span>
+        <p id="date"></p>
+        <p id="message"></p>
+        <img id="imageElement" />
+    </div>
+
+    <script>
+        const cover = document.querySelector('.love-letter-cover');
+        const content = document.querySelector('.love-letter-content');
+        const closeBtn = document.getElementById('closeBtn');
+        const dateElement = document.getElementById('date');
+        const messageElement = document.getElementById('message');
+        const imageElement = document.getElementById('imageElement');
+        const datePicker = document.getElementById('datePicker');
+
+        const fileName = "checkin.txt";
+        const dataMap = {};
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', fileName, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    const text = xhr.responseText;
+                    const lines = text.split('\n');
+                    lines.forEach(line => {
+                        const parts = line.split(',');
+                        if (parts.length === 3) {
+                            const date = parts[0];
+                            const message = parts[1];
+                            const imageUrl = parts[2];
+                            dataMap[date] = { message, imageUrl };
+                        }
+                    });
+
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    const month = String(today.getMonth() + 1).padStart(2, '0');
+                    const day = String(today.getDate()).padStart(2, '0');
+                    const todayDate = `${year}-${month}-${day}`;
+                    datePicker.value = todayDate;
+
+                    datePicker.addEventListener('change', () => {
+                        const selectedDate = datePicker.value;
+                        const today = new Date();
+                        const selected = new Date(selectedDate);
+                        const feb4_2025 = new Date('2025-02-04');
+                        const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                        if (selectedDate === todayFormatted) {
+                            const data = dataMap[selectedDate];
+                            if (data) {
+                                dateElement.textContent = `今天是 ${selectedDate}`;
+                                messageElement.textContent = data.message;
+                                imageElement.src = data.imageUrl;
+                            } else {
+                                dateElement.textContent = `今天是 ${selectedDate}`;
+                                messageElement.textContent = "好姐姐，我喜欢你";
+                                imageElement.src = "../tupian/1.jpg";
+                            }
+                        } else if (selected > today) {
+                            dateElement.textContent = '未来的我会一直喜欢你';
+                            fetch('https://v1.hitokoto.cn/?encode=text')
+                               .then(response => response.text())
+                               .then(apiText => {
+                                        messageElement.textContent = apiText;
+                                        imageElement.src = "../tupian/1.jpg";
+                                    })
+                               .catch(error => {
+                                        console.error('获取API数据出错：', error);
+                                        messageElement.textContent = "宝宝";
+                                        imageElement.src = "../tupian/1.jpg";
+                                    });
+
+                        } else if (selected <= feb4_2025) {
+                            dateElement.textContent = '宝宝,我喜欢你';
+                            fetch('https://v1.hitokoto.cn/?encode=text')
+                               .then(response => response.text())
+                               .then(apiText => {
+                                        messageElement.textContent = apiText;
+                                        imageElement.src = "../tupian/1.jpg";
+                                    })
+                               .catch(error => {
+                                        console.error('获取API数据出错：', error);
+                                        messageElement.textContent = "宝宝";
+                                        imageElement.src = "../tupian/1.jpg";
+                                    });
+                        } else {
+                            const data = dataMap[selectedDate];
+                            if (data) {
+                                dateElement.textContent = `日期： ${selectedDate}`;
+                                messageElement.textContent = data.message;
+                                imageElement.src = data.imageUrl;
+                            } else {
+                                dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
+                                messageElement.textContent = "";
+                                imageElement.src = "";
+                            }
+                        }
+                    });
+
+                    // 手动触发一次change事件，加载初始数据
+                    const changeEvent = new Event('change');
+                    datePicker.dispatchEvent(changeEvent);
+                } else {
+                    console.error('数据获取失败，状态码:', xhr.status);
+                }
+            }
+        };
+        xhr.send();
+
+        cover.addEventListener('click', function () {
+            cover.style.animation = 'coverShrink 0.3s ease';
+            content.style.opacity = '1';
+            content.style.visibility = 'visible';
+            content.style.marginTop = '30px';
+            content.style.animation = 'fadeInUp 1s ease forwards';
+        });
+
+        closeBtn.addEventListener('click', function () {
+            cover.style.animation = 'coverExpand 0.3s ease';
+            content.style.animation = 'fadeOutDown 1s ease forwards';
+            setTimeout(() => {
+                content.style.opacity = '0';
+                content.style.visibility = 'hidden';
+                content.style.marginTop = '-250px';
+            }, 1000);
+        });
+    </script>
+
+    <div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js" data-themeColor="xf-girlPink"
+        data-bottomHeight="2e" data-songChart="热歌榜" data-fadeOutAutoplay data-memory="1"></div>
+    <script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
+    <script src="https://player.xfyun.club/js/yinghua.js"></script>
+    <script src="../beijing/script.js"></script>
+</body>
+
+</html>
