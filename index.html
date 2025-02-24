@@ -1,341 +1,60 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    
+<html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刘航舒姐姐</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #ffb6c1, #e6c7e6);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Caveat', cursive;
-            overflow: hidden;
-            position: relative;
-        }
-
-       .love-letter-cover {
-            width: 350px;
-            height: 250px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-            z-index: 2;
-            margin: 20px;
-        }
-
-       .love-letter-cover:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-            transform: translateY(-5px);
-        }
-
-       .love-letter-cover::after {
-            content: "";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background-image: url('tupian/1.png');
-            background-size: cover;
-            z-index: 3;
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-       .love-letter-content {
-            width: 300px;
-            height: auto;
-            max-height: 200px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            padding: 25px;
-            text-align: center;
-            line-height: 1.8;
-            font-size: 18px;
-            color: #333;
-            opacity: 0;
-            visibility: hidden;
-            position: relative;
-            margin-top: -250px;
-            transition: all 1s ease;
-            overflow-y: auto;
-            z-index: 1;
-            margin: 20px;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeOutDown {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-        }
-
-        button {
-            margin-top: 30px;
-            padding: 18px 40px;
-            font-size: 22px;
-            background-color: #ff99cc;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #ff6699;
-            transform: translateY(-4px);
-            border: 1px solid #ff3366;
-        }
-
-       .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 8px 12px;
-            font-size: 16px;
-            background-color: #ccc;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-       .close-button:hover {
-            background-color: #aaa;
-        }
-
-        @keyframes coverShrink {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(0.95);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes coverExpand {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>刘航舒宝宝</title>
 </head>
 
 <body>
-
-    <input type="date" id="datePicker">
-    <br>
-    <div class="love-letter-cover">
-        <span style="font-size: 30px; color: #ff99cc;">点击展开</span>
+  <!-- 顶部背景区域 -->
+  <div class="top-background">
+    <div class="logo"></div>
+    <div class="top-text"></div>
+    <div class="user-info">
+      <div class="user-circle">
+        <img src="http://q1.qlogo.cn/g?b=qq&nk=2984465363&s=100" alt="Ki">
+        <span>Ki</span>
+      </div>
+      
+      <div class="user-circle">
+        <img src="http://q1.qlogo.cn/g?b=qq&nk=1776255337&s=100" alt="Yi">
+        <span>Yi</span>
+      </div>
     </div>
-    <div class="love-letter-content">
-        <span class="close-button" id="closeBtn">收回</span>
-        <p id="date"></p>
-        <p id="message"></p>
-        <img id="imageElement" />
+  </div>
+  <!-- 底部内容区域 -->
+  <div class="bottom-content">
+    <div class="duration">
+      <p>这是我爱你的</p>
+      <span id="time-span"></span>
     </div>
-
-    <script>
-        const cover = document.querySelector('.love-letter-cover');
-        const content = document.querySelector('.love-letter-content');
-        const closeBtn = document.getElementById('closeBtn');
-        const dateElement = document.getElementById('date');
-        const messageElement = document.getElementById('message');
-        const imageElement = document.getElementById('imageElement');
-        const datePicker = document.getElementById('datePicker');
-
-        // 假设打卡文件名为 "checkin.txt"，且与 HTML 文件在同一目录下
-        const fileName = "checkin.txt";
-        const dataMap = {};
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', fileName, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    const text = xhr.responseText;
-                    const lines = text.split('\n');
-                    lines.forEach(line => {
-                        const parts = line.split(',');
-                        if (parts.length === 3) {
-                            const date = parts[0];
-                            const message = parts[1];
-                            const imageUrl = parts[2]; // 这里假设第三部分是图片链接
-                            dataMap[date] = { message, imageUrl };
-                        }
-                    });
-
-                    // 获取当前日期并设置为日期选择器的值
-                    const today = new Date();
-                    const year = today.getFullYear();
-                    const month = String(today.getMonth() + 1).padStart(2, '0');
-                    const day = String(today.getDate()).padStart(2, '0');
-                    const todayDate = `${year}-${month}-${day}`;
-                    datePicker.value = todayDate;
-
-                    // 触发日期选择器的change事件以加载当天的数据
-                    const event = new Event('change');
-                    datePicker.dispatchEvent(event);
-
-                    datePicker.addEventListener('change', () => {
-                        const selectedDate = datePicker.value;
-                        const today = new Date();
-                        const selected = new Date(selectedDate);
-                        const feb4_2025 = new Date('2025-02-04');
-                        const todayFormatted = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-                        if (selectedDate === todayFormatted) {
-                            const data = dataMap[selectedDate];
-                            if (data) {
-                                dateElement.textContent = `今天是 ${selectedDate}`;
-                                messageElement.textContent = data.message;
-                                imageElement.src = data.imageUrl;
-                            } else {
-                                dateElement.textContent = `今天是 ${selectedDate}`;
-                                messageElement.textContent = "好姐姐，我喜欢你";
-                                imageElement.src = "tupian/1.jpg";
-                            }
-                        } else if (selected > today) {
-                            dateElement.textContent = '未来的我会一直喜欢你';
-                            fetch('https://v1.hitokoto.cn/?encode=text')
-                              .then(response => response.text())
-                              .then(apiText => {
-                                    messageElement.textContent = apiText;
-                                    imageElement.src = "tupian/1.jpg";
-                                })
-                              .catch(error => {
-                                    console.error('获取API数据出错：', error);
-                                    messageElement.textContent = "宝宝";
-                                    imageElement.src = "tupian/1.jpg";
-                                });
-
-                        } else if (selected <= feb4_2025) {
-                            dateElement.textContent = '宝宝,我喜欢你';
-                            fetch('https://v1.hitokoto.cn/?encode=text')
-                              .then(response => response.text())
-                              .then(apiText => {
-                                    messageElement.textContent = apiText;
-                                    imageElement.src = "tupian/1.jpg";
-                                })
-                              .catch(error => {
-                                    console.error('获取API数据出错：', error);
-                                    messageElement.textContent = "宝宝";
-                                    imageElement.src = "tupian/1.jpg";
-                                });
-                        } else {
-                            const data = dataMap[selectedDate];
-                            if (data) {
-                                dateElement.textContent = `日期： ${selectedDate}`;
-                                messageElement.textContent = data.message;
-                                imageElement.src = data.imageUrl;
-                            } else {
-                                dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
-                                messageElement.textContent = "";
-                                imageElement.src = "";
-                            }
-                        }
-                    });
-                } else {
-                    console.error('数据获取失败，状态码:', xhr.status);
-                }
-            }
-        };
-        xhr.send();
-
-        cover.addEventListener('click', function () {
-            // 重新触发日期选择器的change事件以刷新内容
-            const changeEvent = new Event('change');
-            datePicker.dispatchEvent(changeEvent);
-
-            cover.style.animation = 'coverShrink 0.3s ease';
-            content.style.opacity = '1';
-            content.style.visibility = 'visible';
-            content.style.marginTop = '30px';
-            content.style.animation = 'fadeInUp 1s ease forwards';
-        });
-
-        closeBtn.addEventListener('click', function () {
-            cover.style.animation = 'coverExpand 0.3s ease';
-            content.style.animation = 'fadeOutDown 1s ease forwards';
-            setTimeout(() => {
-                content.style.opacity = '0';
-                content.style.visibility = 'hidden';
-                content.style.marginTop = '-250px';
-            }, 1000);
-        });
-    </script>
-
-    <div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js" data-themeColor="xf-girlPink"
-        data-bottomHeight="2e" data-songChart="热歌榜" data-fadeOutAutoplay data-memory="1"></div>
-    <script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
-    <script src="https://player.xfyun.club/js/yinghua.js"></script>
+    <div class="function-buttons">
+<!-- 原结构保持不变，仅添加data属性 -->
+<div class="function-button" data-link="daka/index.html">
+  <img src="tupian/da.png" alt="">
+  <div class="button-text">
+    <p>为爱打卡</p>
+    <span>记录我想你的</span>
+  </div>
+</div>
+ 
+<div class="function-button" data-link="riji/index.html">
+  <img src="tupian/ri.png" alt="">
+  <div class="button-text">
+    <p>日记</p>
+    <span>没事写个日记</span>
+  </div>
+</div>
+  </div>
+  
+  <script src="beijing/script.js"></script>
+    <script src="script.js"></script>
+    
 </body>
-
+    
+   
 </html>
