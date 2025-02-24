@@ -1,0 +1,232 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #f4f4f4;
+  --text-color: #333;
+  --light-text-color: #666;
+  --accent-color: #FFC107; /* 新增：定义一个强调色，用于突出某些元素 */
+}
+
+body {
+  font-family: 'Roboto', sans-serif; /* 更换字体，使其更现代简洁 */
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.page-header {
+  text-align: center;
+  padding: 60px 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: var(--text-color);
+  font-size: 36px;
+  margin: 0 0 20px 0;
+  letter-spacing: 1px;
+}
+
+p {
+  color: var(--light-text-color);
+  font-size: 18px;
+}
+
+.memory-container {
+  padding: 50px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 35px;
+}
+
+.memory-entry {
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 10);
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease; /* 统一过渡效果 */
+  background-color: transparent; 
+  
+}
+
+.memory-entry:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.date-box {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  
+}
+
+.weather-box {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--accent-color); /* 使用强调色 */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.memory-details {
+  padding: 30px;
+  margin-top: 35px;
+}
+
+h3 {
+  color: var(--text-color);
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+p {
+  line-height: 1.7;
+  color: var(--light-text-color);
+}
+
+/* 媒体查询，适配手机端 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+.date-box {
+    font-size: 14px;
+  }
+
+.weather-box {
+    font-size: 14px;
+  }
+
+.memory-container {
+    padding: 30px 20px;
+  }
+}
+/* 在diandian.css中添加以下代码 */
+/* 第一步：修改全局变量 */
+:root {
+  --text-color: #ffffff; /* 原#333改为白色 */
+  --light-text-color: rgba(255,255,255,0.9); /* 原#666改为半透明白 */
+}
+ 
+/* 第二步：具体元素强化 */
+.page-header,
+.memory-entry,
+.memory-details {
+  color: var(--text-color) !important; /* 强制继承 */
+}
+ 
+/* 第三步：特殊元素适配 */
+.date-box,
+.weather-box {
+  background-color: rgba(0,0,0,0.3) !important; /* 半透明背景 */
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 增强可读性 */
+}
+ 
+/* 第四步：动态内容适配 */
+h1, h3, p {
+  color: inherit !important; /* 强制继承父级颜色 */
+  mix-blend-mode: lighten; /* 提升浅色背景对比度 */
+}
+ 
+/* 第五步：背景优化 */
+body {
+  background-image: linear-gradient(135deg, #5c5c5c 0%, #363636 100%); /* 改为深色渐变 */
+}
+/* 添加动态光影效果 */
+.memory-entry::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.3) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  animation: shine 3s infinite;
+}
+ 
+@keyframes shine {
+  100% {
+    left: 200%;
+  }
+}
+/* 在diandian.css中添加 */
+.memory-entry {
+  background: rgba(255,255,255,0.08); /* 半透明背景 */
+  backdrop-filter: blur(12px); /* 毛玻璃效果 */
+  border: 1px solid rgba(255,255,255,0.15); /* 微光边框 */
+}
+ 
+/* 增加卡片入场动画 */
+@keyframes cardEntrance {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.memory-entry { animation: cardEntrance 0.8s ease both; }
+
+   
+.page-header {
+  background: 
+    repeating-linear-gradient(45deg,
+      transparent,
+      transparent 15px,
+      rgba(255,105,180,0.1) 16px,
+      rgba(255,105,180,0.1) 30px 
+    ),
+    linear-gradient(154deg, 
+      rgba(0,255,255,0.08) 0%,
+      rgba(255,0,128,0.06) 50%,
+      transparent 100%
+    );
+  background-blend-mode: overlay;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0.3) 80%,
+    transparent 100%
+  );
+}
+ 
+@keyframes neonScanline {
+  0% { background-position: 0 -100px; }
+  100% { background-position: 0 100%; }
+}
+.page-header::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.02) 4px 
+  );
+  animation: neonScanline 12s linear infinite;
+}

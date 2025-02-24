@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="diandian.css">
+  <title>日记 - Love-Yi</title>
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>心动编织的日常</h1>
+    <p>记录美好</p>
+  </div>
+  <div class="memory-container" id="memory-container"></div>
+  <script>
+    const memoryContainer = document.getElementById('memory-container');
+
+    // 模拟从文件获取数据（实际是获取JSON文件内容）
+    fetch('diaryData.json')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(entry => {
+          const memoryEntry = document.createElement('div');
+          memoryEntry.classList.add('memory-entry');
+
+          const dateBox = document.createElement('div');
+          dateBox.classList.add('date-box');
+          const dateText = document.createElement('span');
+          dateText.textContent = entry.date;
+          dateBox.appendChild(dateText);
+
+          const weatherBox = document.createElement('div');
+          weatherBox.classList.add('weather-box');
+          const weatherText = document.createElement('span');
+          weatherText.textContent = `天气：${entry.weather}`;
+          weatherBox.appendChild(weatherText);
+
+          const details = document.createElement('div');
+          details.classList.add('memory-details');
+
+          const title = document.createElement('h3');
+          title.textContent = entry.title;
+
+          const content = document.createElement('p');
+          content.textContent = entry.content;
+
+          details.appendChild(title);
+          details.appendChild(content);
+
+          memoryEntry.appendChild(dateBox);
+          memoryEntry.appendChild(weatherBox);
+          memoryEntry.appendChild(details);
+
+          memoryContainer.appendChild(memoryEntry);
+        });
+      })
+    .catch(error => {
+        console.error('获取数据失败:', error);
+      });
+  </script>
+</body>
+<script src="../beijing/script.js"></script>
+</html>
