@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱你宝宝</title>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background: url('background-texture.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #444;
+        }
+ 
+        h1 {
+            font-size: 32px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+            margin-bottom: 35px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff; 
+        }
+ 
+      .message {
+            font-size: 24px;
+            text-align: center;
+            max-width: 750px;
+            line-height: 1.75;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 15px;
+            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.12);
+        }
+ 
+      .separator {
+            width: 60%;
+            height: 2px;
+            background-color: #ccc;
+            margin: 30px 0;
+        }
+ 
+      .footer {
+            margin-top: 60px;
+            font-size: 18px;
+            color: #fff;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</head>
+ 
+<body>
+    <h1>告别过去，释怀前行</h1>
+    <div class="message">
+        <!-- 这里会被 JavaScript 动态填充 -->
+    </div>
+    <div class="separator"></div>
+    <div class="footer">我喜欢你的宝宝，上面的看看就行了</div>
+ 
+    <script>
+        // 获取目标元素 
+        const messageElement = document.querySelector('.message');
+        
+        // 需要显示的文字 
+        const textToDisplay = `人生就像一场无法预知终点的旅程，途中有人上车，与我们并肩同行，也有人到站，挥手告别。回首来路，那些曾如荆棘般刺痛心灵的遗憾，那些在深夜里反复咂摸的失去，都在时光温柔的轻抚下，渐渐失去了锐利的锋芒。就像小时候不小心弄丢的心爱玩具，哭肿双眼也找不回来，长大后却明白，人生本就是一场不断得到与失去的旅程。日子一天天过去，我在清晨的第一缕光里醒来，在夜晚的静谧月色下沉思，渐渐明白，有些人注定只能陪你走过一程。
+ 
+如今，我释怀了，放下了对你的怨怼，也放下了自己的不甘。
+ 
+你去奔赴你的山海吧，去追逐你的星辰与梦想，那里一定有专属于你的精彩。而我，会带着往昔的回忆，将其化作前行的力量，重新拥抱生活，去邂逅新的美好。愿你一路繁花相送，余生顺遂无忧，而我，也会向着我的曙光，大步迈进，不负时光，不负自己。`;
+ 
+        // 清空元素内容并存储原文 
+        const originalContent = textToDisplay;
+        messageElement.textContent = '';
+ 
+        // 逐字显示效果 
+        let currentIndex = 0;
+        const typingEffect = setInterval(() => {
+            messageElement.textContent += originalContent.charAt(currentIndex);
+            currentIndex++;
+            
+            if (currentIndex >= originalContent.length) {
+                clearInterval(typingEffect);
+            }
+        }, 60); // 调整数字可以改变显示速度（越小越快）
+    </script>
+        <script src="../beijing/script.js"></script>
+</body>
+ 
+</html>
