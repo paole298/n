@@ -72,7 +72,7 @@
                                 imageElement.src = data.imageUrl;
                             } else {
                                 dateElement.textContent = `今天是 ${selectedDate}`;
-                                messageElement.textContent = "好姐姐，我喜欢你";
+                                messageElement.textContent = "我喜欢你宝宝";
                                 imageElement.src = "../tupian/1.jpg";
                             }
                         } else if (selected > today) {
@@ -109,9 +109,9 @@
                                 messageElement.textContent = data.message;
                                 imageElement.src = data.imageUrl;
                             } else {
-                                dateElement.textContent = `没有找到 ${selectedDate} 的记录`;
-                                messageElement.textContent = "";
-                                imageElement.src = "";
+                                dateElement.textContent = `今天是： ${selectedDate} `;
+                                messageElement.textContent = "我喜欢你宝宝";
+                                imageElement.src = "../tupian/1.jpg";
                             }
                         }
                     });
