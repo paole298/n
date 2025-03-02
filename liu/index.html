@@ -1,76 +1,607 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留给宝宝的信</title>
+    <title>我的状态</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
+        /* 基础样式 */
+        * {
             margin: 0;
             padding: 0;
-            font-family: '', Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #2c3e50;
-        }
- 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
  
-        .text-container {
-            background: linear-gradient(135deg, #6b8cff 0%, #a855f7 100%);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        body {
+            background: linear-gradient(135deg, #1a1b2e, #2c3e50);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+ 
+        /* 头部样式 */
+        .header {
             text-align: center;
+            margin-bottom: 40px;
         }
  
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+ 
+        .header p {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
  
-        p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+        /* 个人资料卡片 */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 800px;
         }
  
-        /* 链接样式 */
-        .highlight a {
-            color: #fff;
+        /* 技能展示 */
+        .skills {
+            margin-top: 30px;
+        }
+ 
+        .skills h2 {
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+ 
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            list-style: none;
+        }
+ 
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #bdc3c7;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+ 
+        .skill-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+ 
+        /* 联系方式 */
+        .contact {
+            margin-top: 30px;
+            text-align: center;
+        }
+ 
+        .contact a {
+            color: #3498db;
             text-decoration: none;
-            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.5rem;
             transition: all 0.3s ease;
         }
  
-        /* 鼠标悬停效果 */
-        .highlight a:hover {
-            color: #ffd700;
-            text-decoration: underline;
+        .contact a:hover {
+            color: #2980b9;
+            transform: scale(1.2);
         }
  
-        /* 新窗口打开提示 */
-        .highlight a::after {
-            content: "";
-            color: #ccc;
-            margin-left: 5px;
+        /* 粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -3;
+        }
+ 
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+ 
+            .profile-card {
+                width: 90%;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+ 
+            .skill-item {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="text-container">
-            <h1>宝宝</h1>
-            <p>
-               当你看到这段文字，证明我还是喜欢你，还是没有释怀，说真的，这五天来，我在失眠的深渊中苦苦挣扎，每一个夜晚都漫长而煎熬。我甚至不敢登录游戏，只因害怕目睹你与他人并肩作战的身影，那会让我的心狠狠揪紧，痛意蔓延至全身。无数个深夜，我机械地刷着视频，从凌晨三点熬到四点，直至手机电量耗尽、被迫关机，仿佛只有这样，才能短暂麻痹自己杂乱的思绪。本想着，熬过今日，或许就能洒脱放手，让一切归零。可当你发来消息时，瞬间将我所有的心理防线击溃，那些好不容易积攒起来的勇气，轰然崩塌。<a href="../li/index.html" target="_blank">离别信我已写好</a>，甚至连网站都准备换成这个、彻底删除联系方式的步骤都在心里预演了无数遍，我天真地以为，只要斩断这最后一丝联系，从此断了念想，可真到了这一刻，我才发现，我根本做不到。我可以骗过所有人，却唯独骗不了自己的心——我，还是无可救药地喜欢你。<p>我真的好喜欢好喜欢你宝宝
-            </p>
+    <!-- 颗粒物背景 -->
+    <div class="particles" id="particles-js"></div>
+ 
+    <!-- 头部 -->
+    <div class="header">
+        <h1>你好呀</h1>
+        <p>顺其自然，开开心心的过每一天</p>
+    </div>
+ 
+    
+
+  <div class="profile-card">
+        <h2>现在的状态</h2>
+        <p>我相信绝对清醒的理智会去压制不该有的情绪</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：80%</li>
+                <li class="skill-item" >情绪稳定：80％</li>
+                <li class="skill-item" >心境：80％</li>
+                <li class="skill-item" >睡眠质量：40％</li>
+                <li class="skill-item" >乐观：20％</li>
+                <li class="skill-item" >心痛难受：30％</li>
+                <li class="skill-item" >烦恼：20％</li>
+                <li class="skill-item" >感觉至上：100％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：30~50％</li>
+                <li class="skill-item" >为你吃醋：无</li>
+                <li class="skill-item" >想你：10~50％</li>
+                <li class="skill-item" >安全感：无</li>
+                <li class="skill-item" >控制欲强：无</li>
+                <li class="skill-item" >为你乱想：无</li>
+                <li class="skill-item" >想粘着你：无</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >看书</li>
+
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+
+ <div class="profile-card">
+        <h2>2月12日下午至2月27</h2>
+        <p>或许短暂，或许难堪，或许本该这样</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：40%</li>
+                <li class="skill-item" >情绪稳定：50％</li>
+                <li class="skill-item" >心境：50％</li>
+                <li class="skill-item" >睡眠质量：10％</li>
+                <li class="skill-item" >乐观：10％</li>
+                <li class="skill-item" >心痛难受：76％</li>
+                <li class="skill-item" >烦恼：60％</li>
+                <li class="skill-item" >感觉至上：0％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：50~70％</li>
+                <li class="skill-item" >为你吃醋：50％</li>
+                <li class="skill-item" >想你：80％</li>
+                <li class="skill-item" >安全感：10％</li>
+                <li class="skill-item" >控制欲强：50％</li>
+                <li class="skill-item" >为你乱想：80％</li>
+                <li class="skill-item" >想粘着你：80％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >看书</li>
+                                <li class="skill-item" >想你</li>
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+
+        
+     <div class="profile-card">
+        <h2>2月5日至2月12日中午</h2>
+        <p>你不知道，每一次的对视都是怦然心动</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：10%</li>
+                <li class="skill-item" >情绪稳定：0％</li>
+                <li class="skill-item" >心境：0％</li>
+                <li class="skill-item" >睡眠质量：40％</li>
+                <li class="skill-item" >乐观：100％</li>
+                <li class="skill-item" >心痛难受：10％</li>
+                <li class="skill-item" >烦恼：20％</li>
+                <li class="skill-item" >感觉至上：0％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：100％</li>
+                <li class="skill-item" >为你吃醋：82％</li>
+                <li class="skill-item" >想你：100％</li>
+                <li class="skill-item" >安全感：80％</li>
+                <li class="skill-item" >控制欲强：100％</li>
+                <li class="skill-item" >为你乱想：100％</li>
+                <li class="skill-item" >想粘着你：100％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >爱你</li>
+                <li class="skill-item" >想你</li>
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+ <div class="profile-card">
+        <h2>2025年2月1日之前</h2>
+        <p>清喜于时光，安稳于日常</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：80%</li>
+                <li class="skill-item" >情绪稳定：90％</li>
+                <li class="skill-item" >心境：43％</li>
+                <li class="skill-item" >睡眠质量：70％</li>
+                <li class="skill-item" >乐观：75％</li>
+                <li class="skill-item" >心痛难受：0％</li>
+                <li class="skill-item" >烦恼：10％</li>
+                <li class="skill-item" >感觉至上：100％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >睡觉</li>
+                <li class="skill-item" >看小说</li>
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的状态</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+ 
+        body {
+            background: linear-gradient(135deg, #1a1b2e, #2c3e50);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+ 
+        /* 头部样式 */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+ 
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+ 
+        .header p {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+ 
+        /* 个人资料卡片 */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 800px;
+        }
+ 
+        /* 技能展示 */
+        .skills {
+            margin-top: 30px;
+        }
+ 
+        .skills h2 {
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+ 
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            list-style: none;
+        }
+ 
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #bdc3c7;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+ 
+        .skill-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+ 
+        /* 联系方式 */
+        .contact {
+            margin-top: 30px;
+            text-align: center;
+        }
+ 
+        .contact a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+ 
+        .contact a:hover {
+            color: #2980b9;
+            transform: scale(1.2);
+        }
+ 
+        /* 粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -3;
+        }
+ 
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+ 
+            .profile-card {
+                width: 90%;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+ 
+            .skill-item {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 颗粒物背景 -->
+    <div class="particles" id="particles-js"></div>
+ 
+    <!-- 头部 -->
+    <div class="header">
+        <h1>你好呀</h1>
+        <p>顺其自然，开开心心的过每一天</p>
+    </div>
+ 
+    
+
+  <div class="profile-card">
+        <h2>现在的状态</h2>
+        <p>我相信绝对清醒的理智会去压制不该有的情绪</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：80%</li>
+                <li class="skill-item" >情绪稳定：80％</li>
+                <li class="skill-item" >心境：80％</li>
+                <li class="skill-item" >睡眠质量：40％</li>
+                <li class="skill-item" >乐观：20％</li>
+                <li class="skill-item" >心痛难受：30％</li>
+                <li class="skill-item" >烦恼：20％</li>
+                <li class="skill-item" >感觉至上：100％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：30~50％</li>
+                <li class="skill-item" >为你吃醋：无</li>
+                <li class="skill-item" >想你：10~50％</li>
+                <li class="skill-item" >安全感：无</li>
+                <li class="skill-item" >控制欲强：无</li>
+                <li class="skill-item" >为你乱想：无</li>
+                <li class="skill-item" >想粘着你：无</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >看书</li>
+
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+
+ <div class="profile-card">
+        <h2>2月12日下午至2月27</h2>
+        <p>或许短暂，或许难堪，或许本该这样</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：40%</li>
+                <li class="skill-item" >情绪稳定：50％</li>
+                <li class="skill-item" >心境：50％</li>
+                <li class="skill-item" >睡眠质量：10％</li>
+                <li class="skill-item" >乐观：10％</li>
+                <li class="skill-item" >心痛难受：76％</li>
+                <li class="skill-item" >烦恼：60％</li>
+                <li class="skill-item" >感觉至上：0％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：50~70％</li>
+                <li class="skill-item" >为你吃醋：50％</li>
+                <li class="skill-item" >想你：80％</li>
+                <li class="skill-item" >安全感：10％</li>
+                <li class="skill-item" >控制欲强：50％</li>
+                <li class="skill-item" >为你乱想：80％</li>
+                <li class="skill-item" >想粘着你：80％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >看书</li>
+                                <li class="skill-item" >想你</li>
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+
+        
+     <div class="profile-card">
+        <h2>2月5日至2月12日中午</h2>
+        <p>你不知道，每一次的对视都是怦然心动</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：10%</li>
+                <li class="skill-item" >情绪稳定：0％</li>
+                <li class="skill-item" >心境：0％</li>
+                <li class="skill-item" >睡眠质量：40％</li>
+                <li class="skill-item" >乐观：100％</li>
+                <li class="skill-item" >心痛难受：10％</li>
+                <li class="skill-item" >烦恼：20％</li>
+                <li class="skill-item" >感觉至上：0％</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <h2>喜欢你的</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >喜欢程度：100％</li>
+                <li class="skill-item" >为你吃醋：82％</li>
+                <li class="skill-item" >想你：100％</li>
+                <li class="skill-item" >安全感：80％</li>
+                <li class="skill-item" >控制欲强：100％</li>
+                <li class="skill-item" >为你乱想：100％</li>
+                <li class="skill-item" >想粘着你：100％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >爱你</li>
+                <li class="skill-item" >想你</li>
+            </ul>
+        </div>
+            
+        </div>
+    </div>
+ <div class="profile-card">
+        <h2>2025年2月1日之前</h2>
+        <p>清喜于时光，安稳于日常</p>
+        <!-- 技能展示 -->
+        <div class="skills">
+            <h2>精神状态</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >理智：80%</li>
+                <li class="skill-item" >情绪稳定：90％</li>
+                <li class="skill-item" >心境：43％</li>
+                <li class="skill-item" >睡眠质量：70％</li>
+                <li class="skill-item" >乐观：75％</li>
+                <li class="skill-item" >心痛难受：0％</li>
+                <li class="skill-item" >烦恼：10％</li>
+                <li class="skill-item" >感觉至上：100％</li>
+            </ul>
+        </div>
+         <div class="skills">
+            <h2>兴趣爱好</h2>
+            <ul class="skills-list">
+                <li class="skill-item" >玩游戏</li>
+                <li class="skill-item" >睡觉</li>
+                <li class="skill-item" >看小说</li>
+            </ul>
+        </div>
+            
         </div>
     </div>
 </body>
