@@ -55,3 +55,33 @@ async function getAndSetHitokoto() {
 
 // 调用函数获取并设置文字
 getAndSetHitokoto();
+
+
+
+const countdownSpan = document.querySelector('.function-button[data-link="zui/index.html"] span');
+
+// 设置目标时间（假设目标时间为未来的某个时间点）
+const targetDate = new Date('2025-03-15 23:59:59').getTime();
+
+// 定义更新倒计时的函数
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownSpan.textContent = `倒计时：${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
+    } else {
+        countdownSpan.textContent = '梦该醒了';
+    }
+}
+
+// 初始调用更新倒计时函数
+updateCountdown();
+
+// 每秒更新一次倒计时
+setInterval(updateCountdown, 1000);
