@@ -58,7 +58,7 @@ getAndSetHitokoto();
 
 
 
-const countdownSpan = document.querySelector('.function-button[data-link="zui/index.html"] span');
+const countdownSpan = document.querySelector('.function-button[data-link="liu/index.html"] span');
 
 // 设置目标时间（假设目标时间为未来的某个时间点）
 const targetDate = new Date('2025-03-15 23:59:59').getTime();
