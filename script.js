@@ -1,3 +1,4 @@
+
 // 假设开始时间，可根据实际情况修改
 const startDate = new Date('2025-02-05 00:00:00'); 
 
@@ -58,30 +59,48 @@ getAndSetHitokoto();
 
 
 
-const countdownSpan = document.querySelector('.function-button[data-link="liu/index.html"] span');
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const closeModalBtn = document.querySelector('.close-btn');
+        const openModalBtn = document.querySelector('.open-modal-btn');
+ 
+        // 打开弹窗 
+        openModalBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'flex';
+            document.querySelector('.modal-content').classList.add('active');
+        });
+ 
+        // 关闭弹窗 
+        closeModalBtn.addEventListener('click', () => {
+            modalOverlay.style.display = 'none';
+            document.querySelector('.modal-content').classList.remove('active');
+        });
+ 
+        // 点击背景关闭弹窗 
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = 'none';
+                document.querySelector('.modal-content').classList.remove('active');
+            }
+        });
+        
+        
 
-// 设置目标时间（假设目标时间为未来的某个时间点）
-const targetDate = new Date('2025-03-15 23:59:59').getTime();
 
-// 定义更新倒计时的函数
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    // 获取当前时间
+    const now = new Date();
+    const hour = now.getHours();
+    const greetingElement = document.getElementById('greeting');
 
-    if (distance > 0) {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownSpan.textContent = `倒计时：${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
+    let greeting;
+if (hour >= 0 && hour < 5) {
+      greeting = '夜深了--宝宝';
+      }
+  else   if (hour >= 5 && hour < 12) {
+      greeting = '早安--宝宝';
+    } else if (hour >= 12 && hour < 18) {
+      greeting = '午安--宝宝';
     } else {
-        countdownSpan.textContent = '梦该醒了';
+      greeting = '晚安--宝宝';
     }
-}
 
-// 初始调用更新倒计时函数
-updateCountdown();
-
-// 每秒更新一次倒计时
-setInterval(updateCountdown, 1000);
+    greetingElement.textContent = greeting;
