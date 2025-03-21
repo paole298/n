@@ -1,65 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
-
+ 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="diandian.css">
-  <title>日记 - Love-Yi</title>
+  <title>网站日志 - Love-Yi</title>
 </head>
-
+ 
 <body>
   <div class="page-header">
-    <h1>心动编织的日常</h1>
+    <h1>网站日志</h1>
     <p>记录美好</p>
   </div>
   <div class="memory-container" id="memory-container"></div>
   <script>
     const memoryContainer = document.getElementById('memory-container');
-
-    // 模拟从文件获取数据（实际是获取JSON文件内容）
-    fetch('diaryData.json')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(entry => {
-          const memoryEntry = document.createElement('div');
-          memoryEntry.classList.add('memory-entry');
-
-          const dateBox = document.createElement('div');
-          dateBox.classList.add('date-box');
-          const dateText = document.createElement('span');
-          dateText.textContent = entry.date;
-          dateBox.appendChild(dateText);
-
-          const weatherBox = document.createElement('div');
-          weatherBox.classList.add('weather-box');
-          const weatherText = document.createElement('span');
-          weatherText.textContent = `天气：${entry.weather}`;
-          weatherBox.appendChild(weatherText);
-
-          const details = document.createElement('div');
-          details.classList.add('memory-details');
-
-          const title = document.createElement('h3');
-          title.textContent = entry.title;
-
-          const content = document.createElement('p');
-          content.textContent = entry.content;
-
-          details.appendChild(title);
-          details.appendChild(content);
-
-          memoryEntry.appendChild(dateBox);
-          memoryEntry.appendChild(weatherBox);
-          memoryEntry.appendChild(details);
-
-          memoryContainer.appendChild(memoryEntry);
+ 
+    // 加载记忆条目 
+    const loadMemories = async () => {
+      try {
+        const response = await fetch('diaryData.json');
+        const data = await response.json();
+        
+        // 清空容器 
+        memoryContainer.innerHTML = '';
+ 
+        // 动态加载卡片 
+        data.forEach((entry, index) => {
+          setTimeout(() => {
+            createMemoryCard(entry);
+          }, index * 150); // 卡片依次出现 
         });
-      })
-    .catch(error => {
+      } catch (error) {
         console.error('获取数据失败:', error);
-      });
+      }
+    };
+ 
+    // 创建记忆卡片 
+    const createMemoryCard = (entry) => {
+      const memoryEntry = document.createElement('div');
+      memoryEntry.classList.add('memory-entry');
+ 
+      // 创建日期框 
+      const dateBox = document.createElement('div');
+      dateBox.classList.add('date-box');
+      const dateText = document.createElement('span');
+      dateText.textContent = entry.date;
+      dateBox.appendChild(dateText);
+ 
+      // 创建天气框 
+      const weatherBox = document.createElement('div');
+      weatherBox.classList.add('weather-box');
+      const weatherText = document.createElement('span');
+      weatherText.textContent = `天气：${entry.weather}`;
+      weatherBox.appendChild(weatherText);
+ 
+      // 创建内容部分 
+      const details = document.createElement('div');
+      details.classList.add('memory-details');
+ 
+      // 创建标题 
+      const title = document.createElement('h3');
+      title.textContent = entry.title;
+ 
+      // 创建内容 
+      const content = document.createElement('p');
+      content.textContent = entry.content;
+ 
+      // 创建图片容器 
+      const imageContainer = document.createElement('div');
+      imageContainer.classList.add('memory-image-container');
+      
+      if (entry.image) {
+        const img = document.createElement('img');
+        img.src = entry.image;
+        img.alt = entry.title;
+        img.classList.add('memory-image');
+        imageContainer.appendChild(img);
+      }
+ 
+      // 将元素组合 
+      details.appendChild(imageContainer);
+      details.appendChild(title);
+      details.appendChild(content);
+ 
+      memoryEntry.appendChild(dateBox);
+      memoryEntry.appendChild(weatherBox);
+      memoryEntry.appendChild(details);
+ 
+      memoryContainer.appendChild(memoryEntry);
+    };
+ 
+    // 初始化加载 
+    loadMemories();
+ 
+    // 监听滚动事件（无限滚动）
+    window.addEventListener('scroll', () => {
+      if (
+        window.innerHeight + window.scrollY >= 
+        document.documentElement.scrollHeight - 100 
+      ) {
+        // 加载更多内容（此处为示例，实际需根据需求实现）
+        console.log('加载更多...');
+      }
+    });
   </script>
 </body>
+ 
 <script src="../beijing/script.js"></script>
 </html>
