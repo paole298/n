@@ -96,11 +96,11 @@ if (hour >= 0 && hour < 5) {
       greeting = '夜深了--宝宝';
       }
   else   if (hour >= 5 && hour < 12) {
-      greeting = '早安--宝宝';
+      greeting = '早上好！--宝宝';
     } else if (hour >= 12 && hour < 18) {
-      greeting = '午安--宝宝';
+      greeting = '中午好！--宝宝';
     } else {
-      greeting = '晚安--宝宝';
+      greeting = '晚上好！--宝宝';
     }
 
     greetingElement.textContent = greeting;
