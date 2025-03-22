@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝宝想你了</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+ 
+        #textDisplay {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #ffffff;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        #textDisplay:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+ 
+        .text-container {
+            position: relative;
+            z-index: 1;
+        }
+ 
+        .glow-effect {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.3;
+        }
+ 
+        .text-container {
+            animation: float 3s ease-in-out infinite;
+        }
+ 
+        /* 音乐控制按钮样式 */
+        .music-control {
+            position: fixed;
+            top: 20px; /* 调整为顶部位置 */
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 999; /* 确保按钮在最上层 */
+        }
+ 
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="textDisplay">
+        <div class="text-container"></div>
+        <div class="glow-effect"></div>
+    </div>
+    
+    <!-- 音乐播放器 -->
+    <audio id="backgroundMusic" src="love.mp3" loop autoplay></audio>
+    <div class="music-control" onclick="toggleMusic()">
+        <span id="musicIcon">⏸</span>
+    </div>
+ 
+    <script>
+        const sentences = [
+            "在无尽的黑夜里踽踽独行太久，我已然熟悉了黑暗的每一寸纹理，冰冷、孤寂，却也成了我习以为常的“安全区”",
+            "直到你带着万丈光芒闯入，刹那间，我的世界被点亮，那些未曾见过的色彩、未曾感受过的温暖，让我贪恋不已",
+            "我努力朝着光奔跑，试图抓住这如梦般的美好",
+            "可如今，光突然消失，黑暗如潮水般汹涌反扑，比之前更甚。我蜷缩在角落里，满心惶恐",
+            "不敢睁眼面对这再度袭来的死寂，只因你带走了我所有直面黑暗的勇气，徒留我在失去你的深渊，无尽沉沦",
+            "但我仍想在这荒芜里，轻声说一句：谢谢你的出现",
+            "我本是散落在尘世的破碎拼图，每一片都刻满伤痛，是你捡起其中一块，温柔地拼上，让我短暂窥见完整的模样",
+            "即便此刻黑暗再次将我笼罩，我也会带着这一小片温暖",
+            "在寒夜中抱紧自己，努力从绝望的泥沼中挣脱，去追寻那或许永不会再来的光，只因你曾来过，点亮过我"
+        ];
+        let currentIndex = 0;
+        const textDisplay = document.getElementById('textDisplay');
+        const content = textDisplay.querySelector('.text-container');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicIcon = document.getElementById('musicIcon');
+ 
+        function typeWriterEffect(text, index) {
+            if (index < text.length) {
+                content.innerHTML += text.charAt(index);
+                setTimeout(() => typeWriterEffect(text, index + 1), 60);
+            } else {
+                setTimeout(() => {
+                    if (currentIndex < sentences.length - 1) {
+                        textDisplay.classList.add('fade-out');
+                        setTimeout(() => {
+                            content.innerHTML = '';
+                            textDisplay.classList.remove('fade-out');
+                            currentIndex++;
+                            typeWriterEffect(sentences[currentIndex], 0);
+                        }, 1500);
+                    }
+                }, 2000);
+            }
+        }
+ 
+        function init() {
+            // 自动播放背景音乐 
+            backgroundMusic.play();
+            // 初始化文字滚动效果 
+            typeWriterEffect(sentences[currentIndex], 0);
+        }
+ 
+        // 音乐控制功能 
+        function toggleMusic() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicIcon.textContent = '⏸';
+            } else {
+                backgroundMusic.pause();
+                musicIcon.textContent = '⏹';
+            }
+        }
+ 
+        window.addEventListener('load', init);
+    </script>
+    <script src="../beijing/script.js"></script>
+</body>
+</html>
+
+
+
+
