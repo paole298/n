@@ -1,0 +1,84 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS 样式将在后面列出 */
+    </style>
+</head>
+<body>
+    <!-- 顶栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">我永愛你</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('all')">留言內容</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showContent('nature')">唉，又睡不着啦</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+ 
+    <!-- 内容区域 -->
+    <main class="main-content container mt-4">
+        
+        <div id="content-all" class="content-block active" >
+            <h2>一个月前写的留言</h2>
+            
+            <img src="2.jpg" alt="" class="img-fluid">
+            
+        </div>
+ 
+
+        <div id="content-nature" class="content-block" >
+            <h2>幸好没有发送成功</h2>
+            <p></p>
+<img src="1.jpg" alt="" class="img-fluid">
+        </div>
+ 
+
+ 
+
+    </main>
+ 
+    <!-- 引入 Bootstrap JS 和 Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+ 
+    <script>
+        // 显示对应的内容布局 
+        function showContent(category) {
+            // 隐藏所有内容块 
+            const contentBlocks = document.querySelectorAll('.content-block');
+            contentBlocks.forEach(block => {
+                block.classList.remove('active');
+            });
+ 
+            // 显示对应的内容块 
+            const targetBlock = document.getElementById(`content-${category}`);
+            if (targetBlock) {
+                targetBlock.classList.add('active');
+                // 定位到对应的内容块 
+                targetBlock.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
