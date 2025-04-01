@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -5,15 +6,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>劉航舒寶寶</title>
-
+  <title>刘航舒宝宝</title>
 </head>
 
 <body>
   <!-- 新增顶栏 -->
   <nav class="top-nav">
     <div class="nav-container">
-
       <div class="modal-tex">
         <h2 id="greeting"></h2> <!-- 给 h2 元素添加 id 用于后续操作 -->
       </div>
@@ -24,8 +23,8 @@
     <div class="modal-content">
       <span class="close-btn">×</span>
       <div class="modal-text">
-        <h2>我永遠喜歡你</h2>
-        <p>愛你一輩子</p>
+        <h2>我永遠会喜歡</h2>
+        <p>記憶中的你</p>
         
       </div>
     </div>
@@ -35,12 +34,13 @@
     <div class="logo"></div>
     <div class="top-text"></div>
     <div class="user-info">
-      <div class="user-circle">
+      <div class="user-circle" id="user-circle-1"> 
         <img src="http://q1.qlogo.cn/g?b=qq&nk=2984465363&s=100" alt="Ki">
         <span>Ki</span>
       </div>
-
-      <div class="user-circle">
+      <!-- 新增放置爱心的div -->
+      <div class="love-heart"></div> 
+      <div class="user-circle" id="user-circle-2"> 
         <img src="http://q1.qlogo.cn/g?b=qq&nk=1776255337&s=100" alt="Yi">
         <span>Yi</span>
       </div>
@@ -54,59 +54,43 @@
     </div>
     <div class="function-buttons">
       <!-- 原结构保持不变，仅添加data属性 -->
-        <div class="function-button" data-link="li/index.html">
-        <img src="tupian/zui.png" alt="">
+      
+      <div class="function-button" data-link="daka/index.html">
+        <img src="tupian/da.png" alt="">
         <div class="button-text">
-          <p>留言</p>
-          <span>愛你一輩子</span>
-        </div>
-      </div>
-    <div class="function-buttons">
-      <!-- 原结构保持不变，仅添加data属性 -->
-        <div class="function-button" data-link="duo/index.html">
-        <img src="tupian/duo.png" alt="">
-        <div class="button-text">
-          <p>多幸运</p>
-          <span>愛你一輩子</span>
+          <p>日常打卡</p>
+          <span>最后的记忆</span>
         </div>
       </div>
 
-      <div class="function-button" data-link="daka/index.html">
-  <img src="tupian/da.png" alt="">
-  <div class="button-text">
-    <p>日常打卡</p>
-    <span>愛你</span>
-  </div>
-</div>
-      <div class="function-button" data-link="yanhua/index.html">
-        <img src="tupian/yanhua.png" alt="">
-        <div class="button-text">
-          <p>烟花</p>
-          <span>愛你</span>
-        </div>
-      </div>
-      <div class="function-button" data-link="shu/index.html">
-        <img src="tupian/shu.png" alt="">
-        <div class="button-text">
-          <p>承诺</p>
-          <span>我会永远记得</span>
-        </div>
-      </div>
       <div class="function-button" data-link="riji/index.html">
         <img src="tupian/ri.png" alt="">
         <div class="button-text">
           <p>网站日志</p>
-          <span>愛你</span>
+          <span>随缘写啦</span>
         </div>
       </div>
-      </div>
     </div>
-
   </div>
   <script src="beijing/script.js"></script>
-
   <script src="script.js"></script>
+  <script>
+    // 获取两个头像的 div 元素
+    const userCircle1 = document.getElementById('user-circle-1');
+    const userCircle2 = document.getElementById('user-circle-2');
 
+    // 为第一个头像添加点击事件监听器
+    userCircle1.addEventListener('click', function () {
+      // 在这里填写你要跳转的网址
+      window.location.href = 'ge/index.html'; 
+    });
+
+    // 为第二个头像添加点击事件监听器
+    userCircle2.addEventListener('click', function () {
+      // 在这里填写你要跳转的网址
+      window.location.href = 'ge/liu.html'; 
+    });
+  </script>
 </body>
 
 </html>
