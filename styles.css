@@ -1,355 +1,395 @@
 
 /* 全局样式 */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  background-color: #f4f4f4;
-  overflow-x: hidden;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
 }
-    .nav-container {
-      max-width: 340px;
-      height: 60px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
- 
-    .nav-links a {
-      color:#007bff ;
-      text-decoration: none;
-      font-size: 30px;
-      transition: color 0.3s ease;
-    }
- 
 
- 
+.nav-container {
+    max-width: 340px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
 
 .top-background {
-  background-image: url('background.jpg');
-  background-size: cover;
-  background-position: center top;
-  height: 40vh;
-  position: relative;
-  text-align: center;
-  color: white;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center top;
+    height: 40vh;
+    position: relative;
+    text-align: center;
+    color: white;
 }
 
 .logo {
-  font-size: 28px;
-  padding-top: 20px;
-  margin-bottom: 10px;
+    font-size: 28px;
+    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 .top-text {
-  font-size: 14px;
-  margin-bottom: 30px;
+    font-size: 14px;
+    margin-bottom: 30px;
 }
 
 .user-info {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
 }
 
 .user-info::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 120px;
-  background-color: transparent; 
-  backdrop-filter: blur(5px); 
-  border-radius: 10px;
-  z-index: -1;
-  border: 1px solid rgba(255, 255, 255, 0.5); /* 添加边框，1px宽，半透明白色 */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 120px;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    z-index: -1;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-
 .user-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: inline-block;
-  margin: 0 20px;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0 20px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .user-circle img {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .user-circle span {
-  display: block;
-  font-size: 14px;
-  color: white;
-  text-align: center;
-  margin-top: 5px;
+    display: block;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
 }
-
 
 /* 底部内容区域样式 */
 .bottom-content {
-  padding: 60px 15%;
-  text-align: center;
-  background-color: white;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
+    padding: 60px 15%;
+    text-align: center;
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .bottom-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('grid-pattern.png');
-  background-size: 20px 20px;
-  opacity: 0.1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('grid-pattern.png');
+    background-size: 20px 20px;
+    opacity: 0.1;
 }
 
 .duration {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .duration p {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .duration span {
-  font-size: 25px;
-  font-weight: bold;
-  color: #333;
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
 }
 
 .function-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .function-button {
-  width: 180px;
-  margin-bottom: 30px;
-  padding: 20px 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: white;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
+    width: 180px;
+    margin-bottom: 30px;
+    padding: 20px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 .function-button img {
-  width: 40px;
-  height: 40px;
-  margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
 }
 
 .button-text {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 .button-text p {
-  font-size: 16px;
-  margin-bottom: 5px;
-  color: #333;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
 }
 
 .button-text span {
-  font-size: 12px;
-  color: #666;
+    font-size: 12px;
+    color: #666;
 }
-
 
 .function-button:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 /* 仅添加光标提示 */
 .function-button {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
- 
+
 /* 保持原有active效果 */
 .function-button:active {
-  transform: scale(0.98) !important;
+    transform: scale(0.98) !important;
 }
 
 /* 原.bottom-content样式 */
 .bottom-content {
-  /* 移除旧属性 */
-  background-color: transparent; /* 完全透明 */
-  box-shadow: none;
-  border-radius: 0;
-  
-  /* 新增视觉层次 */
-  position: relative;
-  z-index: 2;
-  padding: 60px 15% 120px; /* 加大底部留白 */
+    /* 移除旧属性 */
+    background-color: transparent; /* 完全透明 */
+    box-shadow: none;
+    border-radius: 0;
+
+    /* 新增视觉层次 */
+    position: relative;
+    z-index: 2;
+    padding: 60px 15% 120px; /* 加大底部留白 */
 }
- 
+
 /* 移除伪元素背景 */
 .bottom-content::before {
-  content: none;
+    content: none;
 }
- 
+
 /* 子元素透明化 */
 .duration,
 .function-buttons {
-  background-color: transparent;
+    background-color: transparent;
 }
- 
+
 /* 功能按钮透明改造 */
 .function-button {
-  background: rgba(255,255,255,0.02); /* 微透明效果 */
-  border: 1px solid rgba(255,255,255,0.1); /* 半透明白边 */
-  backdrop-filter: blur(5px); /* 弱模糊效果 */
+    background: rgba(255, 255, 255, 0.02); /* 微透明效果 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 半透明白边 */
+    backdrop-filter: blur(5px); /* 弱模糊效果 */
 }
+
 /* 文字对比度提升 */
 .duration p,
 .duration span {
-  color: rgba(255,255,255,0.9); /* 亮色文字 */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: rgba(255, 255, 255, 0.9); /* 亮色文字 */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
- 
+
 /* 功能按钮文字优化 */
 .button-text p {
-  color: #fff;
-  font-weight: 500;
+    color: #fff;
+    font-weight: 500;
 }
- 
+
 .button-text span {
-  color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
 }
- 
+
 /* 悬浮态增强 */
 .function-button:hover {
-  background: rgba(255,255,255,0.1);
-  transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
 }
-
 
 .bottom-content {
-  transform: translateZ(0); /* 开启GPU加速 */
-  perspective: 1000px;
+    transform: translateZ(0); /* 开启GPU加速 */
+    perspective: 1000px;
 }
+
 .bottom-content::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
-  pointer-events: none;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+    pointer-events: none;
 }
 
 .function-button {
-  box-shadow: 
-    0 0 8px rgba(255,255,255,0.1),
-    inset 0 0 12px rgba(255,255,255,0.05);
+    box-shadow: 
+        0 0 8px rgba(255, 255, 255, 0.1),
+        inset 0 0 12px rgba(255, 255, 255, 0.05);
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
 
+/* 弹窗内容样式 */
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-        }
- 
-        /* 弹窗内容样式 */
-        .modal-content {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px 50px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
-            transform: scale(0.9);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
- 
-        /* 弹窗出现时的动画效果 */
-        .modal-content.active {
-            transform: scale(1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
- 
-        /* 关闭按钮样式 */
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-            transition: color 0.3s ease;
-        }
- 
-        .close-btn:hover {
-            color: #333;
-        }
- 
-        /* 按钮样式 */
-        .open-modal-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+/* 弹窗出现时的动画效果 */
+.modal-content.active {
+    transform: scale(1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
 
-        .open-modal-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-        }
- 
-        /* 弹窗中的文本样式 */
-        .modal-text {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #fff;
-            text-align: center;
-        }
-                .modal-tex {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #fff;
-            text-align: center;
-                }
+/* 关闭按钮样式 */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* 按钮样式 */
+.open-modal-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.open-modal-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+/* 弹窗中的文本样式 */
+.modal-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #fff;
+    text-align: center;
+}
+
+.modal-tex {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #fff;
+    text-align: center;
+}
+
+/* 电脑端适配样式（屏幕宽度 >= 1024px） */
+@media (min-width: 1024px) {
+    .nav-container {
+        max-width: 1200px;
+    }
+    .greeting {
+        font-size: 20px;
+    }
+    .open-modal-btn {
+        padding: 20px 40px;
+        font-size: 20px;
+    }
+}
+
+/* 手机端适配样式（屏幕宽度 <= 768px） */
+@media (max-width: 768px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    .greeting {
+        font-size: 14px;
+    }
+    .open-modal-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+.user-info {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.love-heart {
+  width: 50px;
+  height: 50px;
+  background-image: url('tupian/ai.png'); /* 替换为实际爱心图片路径 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 0px;
+}
