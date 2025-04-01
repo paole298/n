@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>刘航舒宝宝</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      background: url('') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .container {
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+      margin: 20px;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-top: 20px;
+    }
+
+    .name {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 20px 0 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+      font-weight: 300;
+      margin: 10px 0;
+    }
+
+    .welcome-message {
+      font-size: 1em;
+      font-weight: 300;
+      margin: 10px 0 20px;
+    }
+
+    .navigation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .navigation button {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin: 5px;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      flex: 1 1 calc(50% - 10px);
+      max-width: calc(50% - 10px);
+    }
+
+    .navigation button:hover {
+      background-color: white;
+      color: black;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8em;
+    }
+
+    @media (max-width: 600px) {
+      .name {
+        font-size: 2em;
+      }
+      
+      .subtitle, .welcome-message {
+        font-size: 1em;
+      }
+      
+      .navigation button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        flex: 1 1 calc(80% - 10px);
+        max-width: calc(80% - 10px);
+      }
+    }
+
+    .cherry-blossom {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, pink 35%, transparent 40%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="tp.jpg" class="profile-pic">
+      <h1 class="name">刘航舒</h1>
+      <p class="subtitle">唯飛森林，独渡海渝<br>“去见山，去看海，去会众生，去寻自己”
+𝓣𝓸 𝓼𝓮𝓮 𝓽𝓱𝓮 𝓶𝓸𝓾𝓷𝓽𝓪𝓲𝓷𝓼, 𝓽𝓸 𝓼𝓮𝓮 𝓽𝓱𝓮 𝓼𝓮𝓪, 𝓽𝓸 𝓶𝓮𝓮𝓽 𝓼𝓮𝓷𝓽𝓲𝓮𝓷𝓽 𝓫𝓮𝓲𝓷𝓰𝓼, 𝓽𝓸 𝓯𝓲𝓷𝓭 𝓽𝓱𝓮𝓶𝓼𝓮𝓵𝓿𝓮𝓼.</p>
+
+    </header>
+
+  </div>
+
+  <script>
+    function createBlossom() {
+      const blossom = document.createElement('div');
+      blossom.classList.add('cherry-blossom');
+      blossom.style.left = Math.random() * window.innerWidth + 'px';
+      blossom.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      blossom.style.opacity = Math.random() * 0.5 + 0.5;
+      blossom.style.width = blossom.style.height = (Math.random() * 10 + 5) + 'px';
+      document.body.appendChild(blossom);
+
+      setTimeout(() => {
+        blossom.remove();
+      }, 5000);
+    }
+
+    setInterval(createBlossom, 200);
+  </script>
+      <script src="../../beijing/script.js"></script>
+</body>
+</html>
