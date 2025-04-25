@@ -1,0 +1,540 @@
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时光印记 | 笔记</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #7d5c4d;
+      --color-primary-light: #9a7869;
+      --color-text: #3a3a3a;
+      --color-text-light: #8a8a8a;
+      --color-bg: #f9f7f5;
+      --color-card-bg: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07);
+      --transition-default: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+ 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+ 
+    body {
+      font-family: 'Noto Serif SC', serif;
+      line-height: 1.8;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-weight: 400;
+      background-image:
+        linear-gradient(rgba(125, 92, 77, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 92, 77, 0.02) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+ 
+    /* 极致优雅顶栏 - 优化选择器特异性 */
+    .header {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+      color: white;
+      padding: 0.8rem 2.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+ 
+    .header__content {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+ 
+    .header__title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      position: relative;
+      padding-bottom: 0.3rem;
+    }
+ 
+    .header__title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.3);
+      transform: scaleX(0.8);
+      transform-origin: left center;
+    }
+ 
+    .header__subtitle {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 300;
+      white-space: nowrap;
+      font-style: italic;
+    }
+ 
+    /* 极致优雅搜索框 - 优化过渡性能 */
+    .search {
+      width: 220px;
+      position: relative;
+      transition: width 0.4s ease, box-shadow 0.3s ease;
+      will-change: width;
+    }
+ 
+    .search:focus-within {
+      width: 260px;
+    }
+ 
+    .search__input {
+      padding: 0.6rem 1.2rem 0.6rem 3rem;
+      border: none;
+      border-radius: 26px;
+      font-size: 0.92rem;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-default);
+      font-family: inherit;
+      color: var(--color-text);
+      letter-spacing: 0.3px;
+    }
+ 
+    .search__input::placeholder {
+      color: var(--color-text-light);
+      opacity: 0.6;
+      font-style: italic;
+      letter-spacing: 0.2px;
+    }
+ 
+    .search__input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), var(--shadow-md);
+    }
+ 
+    .search::before {
+      content: "";
+      position: absolute;
+      left: 1.3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%237d5c4d'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.6' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.6;
+      pointer-events: none;
+      transition: var(--transition-default);
+    }
+ 
+    .search:focus-within::before {
+      opacity: 0.8;
+      transform: translateY(-50%) scale(1.1);
+    }
+ 
+    /* 主内容区域 */
+    .main-content {
+      padding: 3rem 2.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .diary-card {
+      background-color: var(--color-card-bg);
+      border-radius: 14px;
+      padding: 2.2rem;
+      margin: 2.2rem 0;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-default);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      -webkit-tap-highlight-color: transparent;
+      will-change: transform, box-shadow;
+      backface-visibility: hidden;
+    }
+ 
+    .diary-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-light));
+      transition: var(--transition-default);
+    }
+ 
+    .diary-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+ 
+    .diary-card:hover::before {
+      width: 5px;
+    }
+ 
+    .diary-card__title {
+      margin-bottom: 1rem;
+      color: var(--color-text);
+      font-size: 1.4rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+ 
+    .diary-card__title::before {
+      content: "✒";
+      margin-right: 0.8rem;
+      font-size: 1.1em;
+      opacity: 0.7;
+    }
+ 
+    .diary-card__date {
+      color: var(--color-text-light);
+      font-size: 0.82rem;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      font-weight: 300;
+      position: relative;
+      letter-spacing: 0.3px;
+    }
+ 
+    .diary-card__date::before {
+      content: "🗓";
+      margin-right: 0.7rem;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+ 
+    .diary-card__content {
+      color: var(--color-text);
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-top: 1.4rem;
+      padding-left: 2.2rem;
+      position: relative;
+      letter-spacing: 0.2px;
+    }
+ 
+    .diary-card__content::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.9em;
+      width: 15px;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.08);
+      transition: var(--transition-default);
+    }
+ 
+    .diary-card:hover .diary-card__content::before {
+      width: 18px;
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+ 
+    /* 卡片加载动画 - 优化动画性能 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+ 
+    .diary-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+ 
+    .diary-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+ 
+    .diary-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+ 
+    .diary-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+ 
+    .diary-card:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+ 
+    .diary-card:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+ 
+    /* 响应式设计 - 优化媒体查询顺序 */
+    @media (max-width: 900px) {
+      .header {
+        padding: 0.75rem 2rem;
+      }
+ 
+      .header__content {
+        gap: 1.2rem;
+      }
+ 
+      .header__title {
+        font-size: 1.2rem;
+      }
+ 
+      .header__subtitle {
+        font-size: 0.82rem;
+      }
+ 
+      .search {
+        width: 200px;
+      }
+ 
+      .search:focus-within {
+        width: 240px;
+      }
+ 
+      .search__input {
+        padding: 0.55rem 1rem 0.55rem 2.8rem;
+        font-size: 0.88rem;
+      }
+ 
+      .search::before {
+        left: 1.2rem;
+      }
+ 
+      .main-content {
+        padding: 2.5rem 2rem;
+      }
+ 
+      .diary-card {
+        padding: 1.8rem;
+        margin: 1.8rem 0;
+      }
+    }
+ 
+    @media (max-width: 768px) {
+      .header {
+        padding: 0.7rem 1.5rem;
+      }
+ 
+      .header__content {
+        gap: 1rem;
+      }
+ 
+      .header__title {
+        font-size: 1.1rem;
+      }
+ 
+      .header__subtitle {
+        font-size: 0.8rem;
+      }
+ 
+      .search {
+        width: 180px;
+      }
+ 
+      .search:focus-within {
+        width: 220px;
+      }
+ 
+      .search__input {
+        padding: 0.5rem 0.9rem 0.5rem 2.5rem;
+      }
+ 
+      .search::before {
+        left: 1rem;
+      }
+ 
+      .main-content {
+        padding: 2rem 1.5rem;
+      }
+ 
+      .diary-card {
+        padding: 1.6rem;
+        margin: 1.6rem 0;
+      }
+ 
+      .diary-card__title {
+        font-size: 1.3rem;
+      }
+    }
+ 
+    @media (max-width: 480px) {
+      .header {
+        padding: 0.65rem 1rem;
+      }
+ 
+      .header__content {
+        gap: 0.8rem;
+      }
+ 
+      .header__title {
+        font-size: 1rem;
+      }
+ 
+      .header__subtitle {
+        display: none;
+      }
+ 
+      .search {
+        width: 150px;
+      }
+ 
+      .search:focus-within {
+        width: 180px;
+      }
+ 
+      .search__input {
+        padding: 0.45rem 0.8rem 0.45rem 2.2rem;
+        font-size: 0.82rem;
+      }
+ 
+      .search::before {
+        left: 0.9rem;
+      }
+ 
+      .main-content {
+        padding: 1.8rem 1rem;
+      }
+ 
+      .diary-card {
+        padding: 1.4rem;
+        margin: 1.4rem 0;
+        border-radius: 12px;
+      }
+ 
+      .diary-card__title {
+        font-size: 1.2rem;
+      }
+ 
+      .diary-card__content {
+        padding-left: 1.8rem;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+  <header class="header">
+    <div class="header__content">
+      <h1 class="header__title">时光印记</h1>
+      <p class="header__subtitle">记录生活点滴</p>
+    </div>
+    <div class="search">
+      <input type="text" id="search-input" class="search__input" placeholder="搜索笔记...">
+    </div>
+  </header>
+  <main class="main-content">
+    <div id="diary-cards"></div>
+  </main>
+  <script>
+    // 使用更现代的JavaScript语法 
+    document.addEventListener('DOMContentLoaded', async () => {
+      const diaryCardsContainer = document.getElementById('diary-cards');
+      const searchInput = document.getElementById('search-input');
+      
+      try {
+        const response = await fetch('data/diaries.json');
+        if (!response.ok) {
+          throw new Error(response.status === 404 
+            ? '笔记数据文件未找到' 
+            : `HTTP 错误! 状态码: $$${response.status}`);
+        }
+        
+        const jsonData = await response.json();
+        const allCards = [];
+        
+        // 使用文档片段减少DOM操作 
+        const fragment = document.createDocumentFragment();
+        
+        jsonData.forEach((data, index) => {
+          const card = createDiaryCard(data, index);
+          fragment.appendChild(card);
+          allCards.push(card);
+        });
+        
+        diaryCardsContainer.appendChild(fragment);
+        setupSearch(searchInput, allCards);
+        
+      } catch (error) {
+        console.error('加载笔记数据失败:', error.message);
+        diaryCardsContainer.textContent = '无法加载笔记数据，请稍后再试。';
+      }
+    });
+ 
+    const createDiaryCard = (data, index) => {
+      const card = document.createElement('article');
+      card.className = 'diary-card';
+      card.style.animationDelay = `$${index * 0.1}s`;
+      card.dataset.id = data.id || index;
+ 
+      const title = document.createElement('h2');
+      title.className = 'diary-card__title';
+      title.textContent = data.title;
+ 
+      const date = document.createElement('p');
+      date.className = 'diary-card__date';
+      date.textContent = data.date;
+ 
+      const description = document.createElement('p');
+      description.className = 'diary-card__content';
+      description.textContent = data.description || '';
+ 
+      card.append(title, date, description);
+      
+      if (data.link) {
+        card.addEventListener('click', () => {
+          window.location.href = data.link;
+        });
+      }
+ 
+      return card;
+    };
+ 
+    // 搜索功能 - 优化性能 
+    const setupSearch = (searchInput, cards) => {
+      const performSearch = debounce(() => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        
+        cards.forEach(card => {
+          const title = card.querySelector('.diary-card__title').textContent.toLowerCase();
+          const content = card.querySelector('.diary-card__content').textContent.toLowerCase();
+          const isVisible = title.includes(searchTerm) || content.includes(searchTerm);
+          
+          card.style.display = isVisible ? 'block' : 'none';
+        });
+      }, 200);
+      
+      searchInput.addEventListener('input', performSearch);
+    };
+    
+    // 防抖函数优化搜索性能 
+    const debounce = (fn, delay) => {
+      let timeoutId;
+      return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+      };
+    };
+  </script>
+</body>
+ 
+</html>
