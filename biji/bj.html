@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展示文章内容</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --text-color: #1f2937;
+            --light-gray: #f3f4f6;
+            --border-color: #e5e7eb;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        p {
+            margin: 16px 0;
+        }
+
+        code {
+            background-color: var(--light-gray);
+            padding: 12px;
+            border-radius: var(--border-radius);
+            display: block;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        blockquote {
+            border-left: 3px solid var(--primary-color);
+            padding: 12px 16px;
+            margin: 20px 0;
+            background-color: var(--light-gray);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        .footnote {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+
+
+        audio {
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+            width: 100%;
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="article-container"></div>
+
+    <script>
+        // 处理文本内容
+        function handleText(subContent, fragment) {
+            const textNode = document.createTextNode(subContent.value);
+            fragment.appendChild(textNode);
+        }
+
+        // 处理链接内容
+        function handleLink(subContent, fragment) {
+            const aElement = document.createElement('a');
+            aElement.textContent = subContent.text;
+            aElement.href = subContent.url;
+            fragment.appendChild(aElement);
+        }
+
+        // 处理代码内容
+        function handleCode(subContent, fragment) {
+            const preElement = document.createElement('pre');
+            const codeElement = document.createElement('code');
+
+            // 如果有指定语言，添加对应的类名
+            if (subContent.language) {
+                codeElement.className = `language-${subContent.language}`;
+            }
+
+            codeElement.textContent = subContent.value;
+            preElement.appendChild(codeElement);
+            fragment.appendChild(preElement);
+
+            // 高亮代码 
+            hljs.highlightElement(codeElement);
+        }
+
+        // 处理图片内容
+        function handleImage(subContent, fragment) {
+            const imgElement = document.createElement('img');
+            imgElement.src = subContent.src;
+            imgElement.alt = subContent.alt;
+            fragment.appendChild(imgElement);
+        }
+
+        // 处理视频内容
+        function handleVideo(subContent, fragment) {
+            const videoElement = document.createElement('video');
+            videoElement.src = subContent.src;
+            if (subContent.controls) {
+                videoElement.controls = true;
+            }
+            fragment.appendChild(videoElement);
+        }
+
+        // 处理引用内容
+        function handleQuote(subContent, fragment) {
+            const blockquote = document.createElement('blockquote');
+            const quoteText = document.createTextNode(subContent.content);
+            blockquote.appendChild(quoteText);
+            if (subContent.source) {
+                const sourceElement = document.createElement('small');
+                sourceElement.textContent = `—— ${subContent.source}`;
+                blockquote.appendChild(sourceElement);
+            }
+            fragment.appendChild(blockquote);
+        }
+
+        // 处理表格内容
+        function handleTable(subContent, fragment) {
+            const tableElement = document.createElement('table');
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            subContent.headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            tableElement.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            subContent.rows.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            tableElement.appendChild(tbody);
+
+            fragment.appendChild(tableElement);
+        }
+
+        // 处理脚注内容
+        function handleFootnote(subContent, fragment) {
+            const footnoteElement = document.createElement('div');
+            footnoteElement.id = subContent.id;
+            footnoteElement.classList.add('footnote');
+            const footnoteText = document.createTextNode(subContent.content);
+            footnoteElement.appendChild(footnoteText);
+            fragment.appendChild(footnoteElement);
+            const supElement = document.createElement('sup');
+            const refText = document.createTextNode(`${subContent.id}`);
+            supElement.appendChild(refText);
+            const prevNode = fragment.lastChild;
+            if (prevNode) {
+                fragment.insertBefore(supElement, prevNode.nextSibling);
+            }
+        }
+
+        // 处理音频内容
+        function handleAudio(subContent, fragment) {
+            const audioElement = document.createElement('audio');
+            audioElement.src = subContent.src;
+            if (subContent.controls) {
+                audioElement.controls = true;
+            }
+            fragment.appendChild(audioElement);
+        }
+
+        // 处理进度条内容
+        function handleProgress(subContent, fragment) {
+            const progressElement = document.createElement('div');
+            progressElement.classList.add('progress-container');
+            const titleElement = document.createElement('p');
+            titleElement.textContent = subContent.title;
+            progressElement.appendChild(titleElement);
+            const barElement = document.createElement('div');
+            barElement.classList.add('progress-bar');
+            const progressWidth = (subContent.current / subContent.total) * 100;
+            barElement.style.width = `${progressWidth}%`;
+            const progressText = document.createElement('span');
+            progressText.textContent = `${subContent.current}${subContent.unit} of ${subContent.total}${subContent.unit}`;
+            barElement.appendChild(progressText);
+            progressElement.appendChild(barElement);
+            fragment.appendChild(progressElement);
+        }
+
+        // 获取URL参数
+        function getQueryParam(paramName) {
+            const queryParams = new URLSearchParams(window.location.search);
+            return queryParams.get(paramName);
+        }
+
+        function displayArticle() {
+            const container = document.getElementById('article-container');
+            const fileName = getQueryParam('jsonFileName');
+            if (!fileName) {
+                const errorElement = document.createElement('p');
+                errorElement.textContent = '请在URL中添加参数：?jsonFileName=文件名';
+                container.appendChild(errorElement);
+                return;
+            }
+
+            if (!/^[\w-]+$$$/.test(fileName)) {
+                const errorElement = document.createElement('p');
+                errorElement.textContent = '文件名格式不正确，文件名只能包含字母、数字、下划线和连字符';
+                container.appendChild(errorElement);
+                return;
+            }
+
+            const jsonPath = 'data/' + fileName + '.json';
+            fetch(jsonPath)
+               .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+               .then(data => {
+                    const titleElement = document.createElement('h1');
+                    titleElement.textContent = data.title;
+                    container.appendChild(titleElement);
+                    // 设置页面标题为文章标题 
+                    document.title = data.title;
+
+                    data.sections.forEach(section => {
+                        if (section.heading) {
+                            const headingElement = document.createElement('h2');
+                            headingElement.textContent = section.heading;
+                            container.appendChild(headingElement);
+                        }
+                        const fragment = document.createDocumentFragment();
+                        section.content.forEach(subContent => {
+                            switch (subContent.type) {
+                                case 'text':
+                                    handleText(subContent, fragment);
+                                    break;
+                                case 'link':
+                                    handleLink(subContent, fragment);
+                                    break;
+                                case 'code':
+                                    handleCode(subContent, fragment);
+                                    break;
+                                case 'image':
+                                    handleImage(subContent, fragment);
+                                    break;
+                                case 'video':
+                                    handleVideo(subContent, fragment);
+                                    break;
+                                case 'quote':
+                                    handleQuote(subContent, fragment);
+                                    break;
+                                case 'table':
+                                    handleTable(subContent, fragment);
+                                    break;
+                                case 'footnote':
+                                    handleFootnote(subContent, fragment);
+                                    break;
+
+                                case 'audio':
+                                    handleAudio(subContent, fragment);
+                                    break;
+                                case 'progress':
+                                    handleProgress(subContent, fragment);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                        container.appendChild(fragment);
+                    });
+                })
+               .catch(error => {
+                    console.error('读取 JSON 文件时出错:', error);
+                    const errorElement = document.createElement('p');
+                    errorElement.textContent = `读取 JSON 文件时出错: ${error.message}`;
+                    container.appendChild(errorElement);
+                });
+        }
+
+        window.onload = function () {
+            displayArticle();
+        };
+    </script>
+</body>
+
+</html>
