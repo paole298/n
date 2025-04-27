@@ -2,19 +2,19 @@
 {
     "title": "我一直在",
     "date": "2025-04-28",
-    "link": "bj.html/?jsonFileName=wo",
+    "link": "bj.html?jsonFileName=wo",
     "description": "沙漏不会逆转流沙的轨迹，潮汐不会退回昨日的岸线。"
   },
   {
     "title": "我爱你",
     "date": "2025-04-27",
-    "link": "bj.html/?jsonFileName=ai",
+    "link": "bj.html?jsonFileName=ai",
     "description": "我爱你，所以卑微到尘埃里，然后开出花来。"
   },
   {
     "title": "也许这是我最后的幼稚了",
     "date": "2025-04-26",
-    "link": "bj.html/?jsonFileName=articleData",
+    "link": "bj.html?jsonFileName=articleData",
     "description": "人生如棋 落子无悔 三思而行 愿赌服输"
   }
 ]
