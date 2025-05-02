@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概率</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        #countdown {
+            font-size: 5.5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.05em;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        #timeline-message {
+            font-size: 1.1rem;
+            font-weight: 400;
+            min-height: 2.2rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        #final-message {
+            font-size: 1.4rem;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 1.5px;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #495057, #212529);
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        /* 动画增强 */
+        .pulse {
+            animation: gentlePulse 0.6s ease;
+        }
+        
+        @keyframes gentlePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 完成状态 */
+        .completed #countdown {
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        
+        .completed #timeline-message {
+            opacity: 0;
+        }
+        
+        .completed #final-message {
+            opacity: 1;
+            height: auto;
+        }
+        
+        .completed .progress-bar {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="countdown">5</div>
+        <div id="timeline-message">准备开始</div>
+        <div id="final-message">
+            答案：遵从你的内心<br>
+            <span style="font-size:0.95rem; color:#6c757d; margin-top:0.5rem; display:block;">当页面加载完成，五秒的时间，内心的声音已然清晰。无需任何回应，不必重复选择，因为最真实的答案，从来不在概率的游戏里。</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div> 
+ 
+    <script>
+        const timelineMessages = [
+            "五",
+            "四",
+            "三",
+            "二",
+            "一"
+        ];
+        
+        let seconds = 5;
+        const elements = {
+            countdown: document.getElementById('countdown'),
+            timelineMsg: document.getElementById('timeline-message'),
+            finalMsg: document.getElementById('final-message'),
+            progress: document.querySelector('.progress-bar'),
+            container: document.querySelector('.container')
+        };
+        
+        function updateCountdown() {
+            // 更新数字和进度条 
+            elements.countdown.textContent = seconds;
+            elements.progress.style.width = `${(seconds / 5) * 100}%`;
+            
+            // 更新阶段提示文字 
+            elements.timelineMsg.textContent = timelineMessages[5 - seconds];
+            
+            // 添加脉冲动画 
+            elements.countdown.classList.add('pulse');
+            setTimeout(() => {
+                elements.countdown.classList.remove('pulse');
+            }, 600);
+            
+            seconds--;
+            
+            if (seconds >= 0) {
+                setTimeout(updateCountdown, 1000);
+            } else {
+                elements.container.classList.add('completed');
+                // 最终动画 
+                setTimeout(() => {
+                    elements.finalMsg.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        }
+        
+        // 启动倒计时 
+        setTimeout(updateCountdown, 800); // 延迟启动增加仪式感 
+    </script>
+</body>
+</html>
