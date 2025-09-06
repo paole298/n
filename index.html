@@ -2,78 +2,187 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title>标记</title>
     <style>
-        :root{--bg:#fff;--text:#333;--btn:#444;--link:#1a56db;--link-h:#0d47a1;--img-shadow:0 2px 6px rgba(0,0,0,0.08);--h2-line:var(--link)}
-        .dark{--bg:#1a1a1a;--text:#ddd;--btn:#666;--link:#8ab4f8;--link-h:#c7d2fe;--img-shadow:0 2px 6px rgba(0,0,0,0.4);--h2-line:var(--link)}
+        :root{
+            --bg:#fff;--text:#333;--btn:#444;--link:#1a56db;--link-h:#0d47a1;
+            --popup-gradient:linear-gradient(135deg,#e6f0ff,#d1e7fe);--popup-border:#c6e0ff;
+            --popup-text:#2d4a6b;--popup-shadow:0 4px 12px rgba(26,86,219,0.15);
+        }
+        .dark{
+            --bg:#1a1a1a;--text:#ddd;--btn:#666;--link:#8ab4f8;--link-h:#c7d2fe;
+            --popup-gradient:linear-gradient(135deg,#233554,#1a2840);--popup-border:#3a5683;
+            --popup-text:#c7d2fe;--popup-shadow:0 4px 12px rgba(138,180,248,0.1);
+        }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
-            font:1rem/1.75 "微软雅黑",Arial,sans-serif;
-            max-width:700px;
-            margin:35px auto;
-            padding:0 5%;
-            background:var(--bg);
-            color:var(--text);
-            transition:.3s;
-            -webkit-font-smoothing:antialiased;
-            -webkit-font-feature-settings:"liga" on;"calt" on;
-            font-feature-settings:"liga" on;"calt" on;
+            font:1rem/1.75 "微软雅黑",Arial,sans-serif;max-width:700px;margin:35px auto;
+            padding:0 5%;background:var(--bg);color:var(--text);transition:.3s;
+            -webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;
         }
         h1{font:clamp(1.5rem,3.5vw,1.9rem) sans-serif;margin:0 0 35px;padding-bottom:10px;border-bottom:1px solid var(--text);opacity:.6;letter-spacing:.3px;}
-        h2{font:clamp(1.1rem,2.5vw,1.3rem) sans-serif;margin:40px 0 18px;padding-left:8px;border-left:2px solid var(--h2-line);font-weight:600;}
-        p{margin-bottom:20px;text-indent:2em;line-height:1.75;word-spacing:0.05em;}
+        h2{font:clamp(1.1rem,2.5vw,1.3rem) sans-serif;margin:40px 0 18px;padding-left:8px;border-left:2px solid var(--link);font-weight:600;}
+        p{margin-bottom:20px;text-indent:2em;line-height:1.75;}
         .first-p{text-indent:0;margin-top:5px;}
-        .img-box{margin:25px 0;text-align:center;}
-        .adapt-img{width:100%;max-width:580px;border-radius:3px;box-shadow:var(--img-shadow);margin-bottom:8px;}
-        .img-desc{font-size:.85rem;opacity:.7;text-indent:0;}
+        .adapt-img{width:100%;max-width:580px;border-radius:3px;margin:25px 0 8px;}
+        .img-desc{font-size:.85rem;opacity:.7;text-align:center;}
         ul{margin:0 0 20px 1.8em;padding-left:1em;list-style:disc inside;}
         ul li{margin-bottom:9px;}
-        a{color:var(--link);text-decoration:none;border-bottom:1px solid var(--link);opacity:.9;transition:.2s;}
-        a:hover{color:var(--link-h);border-color:var(--link-h);opacity:1;}
+        a, .popup-trigger{color:var(--link);text-decoration:none;border-bottom:1px solid var(--link);opacity:.9;transition:.2s;cursor:pointer;}
+        a:hover, .popup-trigger:hover{color:var(--link-h);border-color:var(--link-h);opacity:1;}
         .func-btn{position:fixed;padding:5px 10px;border:none;border-radius:3px;background:var(--btn);color:#fff;cursor:pointer;font:.75rem sans-serif;}
         .mode-btn{top:15px;right:15px;}
         .top-btn{bottom:15px;right:15px;display:none;}
         .read-time{position:fixed;bottom:15px;left:15px;font:.75rem sans-serif;opacity:.7;}
         .pro{position:fixed;top:0;left:0;height:2px;background:var(--btn);width:0%;z-index:10;}
         html{scroll-behavior:smooth;}
+
+        .popup-box{
+            position:fixed;max-width:300px;padding:12px;
+            background:var(--popup-gradient);border:1px solid var(--popup-border);
+            border-radius:8px;box-shadow:var(--popup-shadow);
+            font-size:.85rem;color:var(--popup-text);z-index:100;
+            display:none;animation:popupFade 0.3s ease-out forwards;line-height:1.5;
+            margin-top:10px;
+        }
+        @keyframes popupFade{0%{opacity:0;transform:translateY(2px);}100%{opacity:1;transform:translateY(0);}}
+        .popup-img{width:100%;border-radius:6px;margin:8px 0 5px;display:none;}
+        .popup-title{font-weight:600;margin-bottom:4px;font-size:1rem;}
+        .popup-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:transparent;z-index:90;display:none;}
+
+        .random-text{
+            position:fixed;font-size:1.2rem;font-weight:bold;pointer-events:none;
+            animation:naturalFade 2.2s linear forwards;z-index:50;
+        }
+        @keyframes naturalFade{0%{opacity:1;transform:translate(-50%,0);}100%{opacity:0;transform:translate(-50%,-25px);}}
     </style>
 </head>
 <body>
     <div class="pro"></div>
-    <button class="func-btn mode-btn" onclick="const b=document.body;b.classList.toggle('dark');this.textContent=b.classList.contains('dark')?'白天':'夜间'">夜间</button>
-    <button class="func-btn top-btn" onclick="window.scrollTo({top:0})">顶部</button>
+    <button class="func-btn mode-btn">夜间</button>
+    <button class="func-btn top-btn">顶部</button>
     <div class="read-time">阅读时长：00:00</div>
+
+    <div class="popup-box" id="popupBox">
+        <div class="popup-title" id="popupTitle"></div>
+        <div id="popupContent"></div>
+        <img class="popup-img" id="popupImg">
+    </div>
+    <div class="popup-mask" id="popupMask"></div>
+
     <h1>松开手，才能触碰星辰大海</h1>
     <h2>2025年9月1日</h2>
     <p>如果你点进来了，嗯，应该不会了</p>
     <div class="img-box">
-        <img src="https://cdn2.zzzmh.cn/wallpaper/origin/a9982f7441bd4e07a3b1a26af43457d9.jpg" alt="旅行风景" class="adapt-img">
+        <img src="http://img.netbian.com/file/2024/1030/234158qiZgJ.jpg" alt="爱" class="adapt-img">
         <p class="img-desc">——见山仍是山，见水仍是水</p>
     </div>
-
-
-
+    <h2>2025年9月7日</h2>
+    <p>我的世界安静了，好喜欢</p>
+    <div class="img-box">
+        <img src="http://img.netbian.com/file/2025/0807/225619nrarN.jpg" alt="爱" class="adapt-img">
+        <p class="img-desc">——微风轻拂，带着花香与希望</p>
+    </div>
 </body>
 <script>
-    const topBtn = document.querySelector('.top-btn');
-    window.onscroll = () => {
-        const rate = document.documentElement.scrollTop/(document.documentElement.scrollHeight - document.documentElement.clientHeight);
-        document.querySelector('.pro').style.width = `${rate*100}%`;
-        topBtn.style.display = document.documentElement.scrollTop > 200 ? 'block' : 'none';
-    }
+    const [topBtn, proBar, readTimeEl, modeBtn, popupBox, popupTitle, popupContent, popupImg, popupMask, body] = [
+        '.top-btn', '.pro', '.read-time', '.mode-btn', '#popupBox', '#popupTitle', '#popupContent', '#popupImg', '#popupMask', 'body'
+    ].map(s => document.querySelector(s));
 
-    let s = Date.now(), t = 0;
-    const timeEl = document.querySelector('.read-time');
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => requestAnimationFrame(() => {
+        const scrollTop = document.documentElement.scrollTop;
+        if (scrollTop !== lastScrollTop) {
+            proBar.style.width = `${scrollTop/(document.documentElement.scrollHeight - document.documentElement.clientHeight)*100}%`;
+            topBtn.style.display = scrollTop > 200 ? 'block' : 'none';
+            lastScrollTop = scrollTop;
+        }
+    }));
+    topBtn.onclick = () => window.scrollTo({top:0});
+
+    let startTime = Date.now();
     setInterval(() => {
-        document.hidden && (s = Date.now());
-        t = Date.now() - s;
-        const m = Math.floor(t/60000).toString().padStart(2,'0');
-        const sec = Math.floor((t%60000)/1000).toString().padStart(2,'0');
-        timeEl.textContent = `阅读时长：${m}:${sec}`;
+        if (!document.hidden) {
+            const readTime = Date.now() - startTime;
+            const min = Math.floor(readTime/60000).toString().padStart(2,'0');
+            const sec = Math.floor((readTime%60000)/1000).toString().padStart(2,'0');
+            readTimeEl.textContent = `阅读时长：${min}:${sec}`;
+        }
     }, 1000);
 
-    window.matchMedia?.('(prefers-color-scheme:dark)').matches && (document.body.classList.add('dark'), document.querySelector('.mode-btn').textContent = '白天');
+    const isDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    if (isDarkMode) {
+        body.classList.add('dark');
+        modeBtn.textContent = '白天';
+    }
+    modeBtn.onclick = () => {
+        body.classList.toggle('dark');
+        modeBtn.textContent = body.classList.contains('dark') ? '白天' : '夜间';
+        if (popupBox.style.display === 'block') {
+            const s = getComputedStyle(document.documentElement);
+            popupBox.style.cssText = `background:${s.getPropertyValue('--popup-gradient')};border-color:${s.getPropertyValue('--popup-border')};color:${s.getPropertyValue('--popup-text')};box-shadow:${s.getPropertyValue('--popup-shadow')}`;
+        }
+    }
+
+    const closePopup = () => {
+        popupBox.style.display = 'none';
+        popupMask.style.display = 'none';
+    };
+    popupMask.onclick = closePopup;
+    body.onclick = e => !e.target.closest('.popup-box') && !e.target.closest('.popup-trigger') && closePopup();
+
+    document.querySelectorAll('.popup-trigger').forEach(trigger => {
+        const data = trigger.dataset;
+        trigger.onclick = e => {
+            e.stopPropagation();
+            const rect = trigger.getBoundingClientRect();
+            
+            popupTitle.textContent = data.title || '';
+            popupContent.textContent = data.content;
+            if (data.type === 'img' && data.img) {
+                popupImg.src = data.img;
+                popupImg.alt = data.title;
+                popupImg.style.display = 'block';
+            } else popupImg.style.display = 'none';
+
+            popupBox.style.left = `${rect.left}px`;
+            popupBox.style.top = `${rect.bottom - 2}px`;
+            popupBox.style.display = 'block';
+            popupMask.style.display = 'block';
+
+            const pRect = popupBox.getBoundingClientRect();
+            if (pRect.right > window.innerWidth) popupBox.style.left = `${window.innerWidth - pRect.width - 10}px`;
+        };
+    });
+
+
+const STAT_API = 'https://api.tangdouz.com/ipjs/ip.php?nr=paolea';
+
+window.addEventListener('load', function() {
+  
+  const statImg = new Image();
+  statImg.src = STAT_API + '&t=' + new Date().getTime(); 
+});
+
+
+
+    const textList = ['缘浅', '赌徒', '念无恙','过去', '宿命', '再见', '执念', '雾起了'];
+    const colors = {
+        light: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ff8a80', '#66bb6a', '#7e57c2'],
+        dark: ['#ff9e7d', '#81e6d9', '#81d4fa', '#ffccbc', '#a5d6a7', '#b39ddb']
+    };
+    body.addEventListener('click', e => {
+        const textEl = document.createElement('div');
+        textEl.className = 'random-text';
+        textEl.textContent = textList[Math.floor(Math.random()*textList.length)];
+        const isDark = body.classList.contains('dark');
+        textEl.style.color = colors[isDark ? 'dark' : 'light'][Math.floor(Math.random()*colors[isDark ? 'dark' : 'light'].length)];
+        textEl.style.left = `${e.clientX}px`;
+        textEl.style.top = `${e.clientY}px`;
+        body.appendChild(textEl);
+        setTimeout(() => textEl.remove(), 2200);
+    });
 </script>
 </body>
 </html>
